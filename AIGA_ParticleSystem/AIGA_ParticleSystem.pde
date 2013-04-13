@@ -29,10 +29,9 @@ void setup() {
 
 //preset vectors.
 
-Vec2D v50, v100, v150;
-v50 = new Vec2D(50, 0);
-v100 = new Vec2D(100, 0);
-v150 = new Vec2D(150, 0);
+Vec2D v50 = new Vec2D(50, 0);
+Vec2D v100 = new Vec2D(100, 0);
+Vec2D v150 = new Vec2D(150, 0);
 
 
 

@@ -13,10 +13,18 @@ class ParticleSystem {
   ParticleSystem(int num, PImage img, int s) {
     particles = new ArrayList();              // Initialize the arraylist
     size = s;
-    int res = 20;
-    for (int i = 0; i < num; i++) {
-      particles.add( new Particle(new Vec2D(random(width/res) * res, random(height /res) * res), img, size));
+    int res = ceil(sqrt(num));
+    int rows = width / res;
+    int cols = height / res;
+    
+    println(rows + " "+ res );
+    for (int i = 0; i < res; i++) {
+      for (int j = 0; j < cols; j++) {
+        Vec2D v = new Vec2D((rows/2) + i * rows, (cols/2) + j * cols);
+        particles.add( new Particle(v, img, size));
+      }
     }
+    
   }
 
   void run() {

@@ -41,7 +41,7 @@ class Particle {
   // Method to display
   void render() {
     imageMode(CENTER);
-    tint(155,200);
+    tint(255,200);
     image(img, loc.x, loc.y, size, size);
     if (debug) {
       fill(255);
