@@ -2,6 +2,7 @@ import toxi.geom.*;
 
 ParticleSystem ps[] = new ParticleSystem[4];
 PImage lights[] = new PImage[4];
+PImage white;
 int sizes[] = {50, 60, 70,40 };
 
 boolean debug = false;
@@ -11,9 +12,12 @@ void setup() {
 
   // Create an alpha masked image to be applied as the particle's texture
 
+
+  white = loadImage("white.png");
+
   for (int i = 0; i < ps.length; i++) {
     lights[i] = loadImage( (i+1) + ".png");
-    ps[i] = new ParticleSystem(50, lights[i], sizes[i]);
+    ps[i] = new ParticleSystem(50, white, sizes[i]);
   } 
 
 
@@ -22,6 +26,16 @@ void setup() {
   //    ps[type].addParticle(new Vec2D(random(width), height), lights[type], type);
   //  }
 }
+
+//preset vectors.
+
+Vec2D v50, v100, v150;
+v50 = new Vec2D(50, 0);
+v100 = new Vec2D(100, 0);
+v150 = new Vec2D(150, 0);
+
+
+
 
 void keyPressed() {
   
@@ -41,16 +55,16 @@ void keyPressed() {
 
   //back and forth
   if (key == '3') {
-    ps[0].backAndForth(new Vec2D(100, 0).rotate(radians(30)), 3000);
+    ps[0].backAndForth( v100.rotate(radians(90)), 1500);
   }
   if (key == 'e') {
-    ps[1].backAndForth(new Vec2D(150, 0).rotate(radians(60)), 3000);
+    ps[1].backAndForth( v100.rotate(radians(90)), 1500);
   }
   if (key == 'd') {
-    ps[2].backAndForth(new Vec2D(70, 0).rotate(radians(90+30)), 4500);
+    ps[2].backAndForth( v100.rotate(radians(90)), 1500);
   }
   if (key == 'c') {
-    ps[3].backAndForth(new Vec2D(70, 0).rotate(radians(90+60)), 1500);
+    ps[3].backAndForth( v100.rotate(radians(90)), 1500);
   }
 
 
