@@ -1,0 +1,6 @@
+// time, group, action, options
+// rotate opts : scale( ie. 1 or 1.5), velocity (ie. 1 or -1)
+// backAndForth opts	: direction(), pace (in seconds). 
+4000, 0, backAndForth, 	updown, 1
+8000, 1, rotate, 	1, 1
+8000, 2, rotate, 	1, -1

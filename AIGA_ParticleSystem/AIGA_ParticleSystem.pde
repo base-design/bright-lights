@@ -1,27 +1,34 @@
+
+//PREFERENCES
+boolean debug = true;
+// how scaled down.
+int global_scale = 4;
+// number of particles.
+int ps_num[] = { 26,25,26,25};
+// diameters per group
+int ps_size[] = {30,50,40,70};
+
+//Libraries
 import toxi.geom.*; 
 
+// Variables.=
 ParticleSystem ps[] = new ParticleSystem[4];
-PImage lights[] = new PImage[4];
 PImage white;
-int sizes[] = {50, 60, 70,40 };
+int canvas_width = 5760;
+int canvas_height = 1080;
+boolean initialized = false;
 
-boolean debug = false;
 
 void setup() {
-  size(1470, 870, P2D);
-
-  // Create an alpha masked image to be applied as the particle's texture
-
-
-  white = loadImage("white.png");
-
+  size(canvas_width / global_scale, canvas_height /global_scale, P2D);
+  white = loadImage("white.png"); // Load our spotlight
+  
+  // intialize the 4 systems
   for (int i = 0; i < ps.length; i++) {
-    lights[i] = loadImage( (i+1) + ".png");
-  } 
-    ps[0] = new ParticleSystem(10, white, 40);
-    ps[1] = new ParticleSystem(10, white, 70);
-    ps[2] = new ParticleSystem(9, white, 30);
-    ps[3] = new ParticleSystem(9, white, 50);
+    ps[i] = new ParticleSystem(ps_num[i], white, ps_size[i] / global_scale, i);
+  }
+
+  parseInstructions();
 
 
   //  for (int i = 0; i < 150; i++) {
@@ -30,14 +37,11 @@ void setup() {
   //  }
 }
 
-//preset vectors.
-
-Vec2D v50 = new Vec2D(50, 0);
-Vec2D v100 = new Vec2D(100, 0);
-Vec2D v150 = new Vec2D(150, 0);
-
-
-
+//preset  magnitude 1
+Vec2D horizontal = new Vec2D(1, 0);
+Vec2D vertical = new Vec2D(0,1);
+Vec2D upright = new Vec2D(1,1).normalize();
+Vec2D upleft = new Vec2D(-1,1).normalize();
 
 void keyPressed() {
   
@@ -55,49 +59,40 @@ void keyPressed() {
     ps[3].stop();
   }
 
-  //back and forth
-  if (key == '3') {
-    ps[0].backAndForth( v100.rotate(radians(90)), 1500);
-  }
-  if (key == 'e') {
-    ps[1].backAndForth( v100.rotate(radians(90)), 1500);
-  }
-  if (key == 'd') {
-    ps[2].backAndForth( v100.rotate(radians(90)), 1500);
-  }
-  if (key == 'c') {
-    ps[3].backAndForth( v100.rotate(radians(90)), 1500);
-  }
 
 
-  //rotate
+  //rotate : scale , velocity
+  // clockwise > 0 > counterclockwise
   if (key == '2') {
-    ps[0].rotate(new Vec2D(4, 0).rotate(PI/4), 0.05);
+    ps[0].rotate(1, 1);
   }
   if (key == 'w') {
-    ps[1].rotate(new Vec2D(4, 0).rotate(PI/4), 0.05);
+    ps[1].rotate(1, 1);
   }
   if (key == 's') {
-    ps[2].rotate(new Vec2D(4, 0).rotate(PI/4), 0.05);
+    ps[2].rotate(1,-1);
   }
   if (key == 'x') {
-    ps[3].rotate(new Vec2D(4, 0).rotate(PI/4), 0.05);
+    ps[3].rotate(1,-1);
   }
-
-
 }
 
-
-
-
 void draw() {
-
   // Additive blending!
   blendMode(ADD);
-  background(0);
+  background(0); 
+  runInstructions();
   for (int i = 0; i < ps.length; i++) {
     ps[i].run();
   }
-  //  println(ps[1].currentMode());
+  
+  
+  if (!initialized) {
+    initialized = true; 
+    for (int i = 0; i < ps.length; i++) {
+      ps[i].start(i);
+    }
+  
+}
 }
 

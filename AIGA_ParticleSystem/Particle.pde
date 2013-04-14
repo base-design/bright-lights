@@ -3,41 +3,42 @@
 // http://natureofcode.com
 
 // Simple Particle System
-
 class Particle {
-  Vec2D loc, target, vel, acc;
+  // Settings
+  float maxspeed = 5 + random(1);
+  float maxforce = 0.5 + random(.1);
+  String mode = "none";
+
+  Vec2D loc, target, origin, start, vel, acc;
+  PImage img;
+  float size;
+  int id, order;
+
 
 
   // variables related to modes. 
-  Vec2D delta, rdelta;
-  float rdeltaRotation;
   Timer timer;
+  Vec2D delta, rdelta;
+  float rvel, rangle;
   
-  
-  PImage img;
-  int size;
-  float maxspeed, maxforce;
-  String mode = "none";
-  
-  // Another constructor (the one we are using here)
-  Particle(Vec2D l, PImage i, int s, Vec2D d) {
-    // Boring example with constant acceleration
-    acc = new Vec2D(0, 0);
-    vel = new Vec2D(0,0);
-    loc = l.copy();
-    target = l.copy();
-    delta = d.copy();
-    maxspeed = 5 + random(1);
-    maxforce = 0.5 + random(.1);
+  Particle(Vec2D l, PImage i, int s, Vec2D d, int _id) {
     img = i;
+    id = _id;
     size = s;
     timer = new Timer(1000);
+       
+    acc = new Vec2D(0, 0);
+    vel = new Vec2D(0,0);
+    origin = l.copy();
 
+    start = new Vec2D(random(width), height + s );
+    loc = start.copy();
+    target = start.copy();
+    delta = d.copy();
 
   }
 
 
-  // Method to display
   void render() {
     imageMode(CENTER);
     tint(255,200);
@@ -52,27 +53,41 @@ class Particle {
   }
 
 
+  // helper to run the modes
   void runModes() {
     if (mode.equals("backAndForth")) runBackAndForth();
     if (mode.equals("rotate")) runRotate();
+    if (mode.equals("enterStage"))  runEnterStage();
   }
 
 
-  String currentMode() {
-    return mode;
-  }
-
-
-
+  // MODES
+  
   void stop(){
   mode = "none";
   }
 
+  void setEnterStage(int o){
+    mode = "enterStage";
+    order = o;
+  }
+  
+  void runEnterStage(){
+    target = origin.copy();
+  }
 
+
+  // BACK AND FORTH
   void setBackAndForth(Vec2D d, int w) {
     mode = "backAndForth";
     timer.wait(w);
-    delta = d.normalize().scale(delta.x);
+    float mag;
+    float angle = d.angleBetween(new Vec2D(1,0));
+    if (angle % 180 > 90+60 || angle % 180 < 30 ) mag = delta.x;
+    else if (angle % 90 > 30 || angle % 90 < 60 ) mag = delta.magnitude();
+    else mag = delta.y;
+    
+    delta = d.normalize().scale(mag);
   }
 
   void runBackAndForth() {
@@ -89,15 +104,14 @@ class Particle {
 
 
 
-  void setRotate(Vec2D d, float r) {
+  void setRotate(float sc, float v) {
     mode = "rotate";
-    rdelta = d.copy().scale(random(.2)+1);
-    rdeltaRotation = r;
+    rdelta = new Vec2D(delta.x,0);
+    rvel = radians(v);
   }
 
   void runRotate() {
-    target.addSelf(rdelta);
-    delta = delta.rotate(rdeltaRotation);
+    target = origin.add(rdelta.rotate(rvel) );
   }
 
 
