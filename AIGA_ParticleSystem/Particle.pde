@@ -9,29 +9,28 @@ class Particle {
 
 
   // variables related to modes. 
-  Vec2D delta;
-  float deltaRotate;
+  Vec2D delta, rdelta;
+  float rdeltaRotation;
   Timer timer;
   
   
-  float lifespan;
   PImage img;
   int size;
   float maxspeed, maxforce;
   String mode = "none";
   
   // Another constructor (the one we are using here)
-  Particle(Vec2D l, PImage i, int s) {
+  Particle(Vec2D l, PImage i, int s, Vec2D d) {
     // Boring example with constant acceleration
     acc = new Vec2D(0, 0);
-    vel = new Vec2D(random(1) - 0.5, random(1) - 0.5).scale(3);
+    vel = new Vec2D(0,0);
     loc = l.copy();
     target = l.copy();
-    maxspeed = 5;
-    maxforce = 0.5;
+    delta = d.copy();
+    maxspeed = 5 + random(1);
+    maxforce = 0.5 + random(.1);
     img = i;
     size = s;
-    lifespan = 255;
     timer = new Timer(1000);
 
 
@@ -73,7 +72,7 @@ class Particle {
   void setBackAndForth(Vec2D d, int w) {
     mode = "backAndForth";
     timer.wait(w);
-    delta = d.copy().scale(random(.2)+1);
+    delta = d.normalize().scale(delta.x);
   }
 
   void runBackAndForth() {
@@ -92,13 +91,13 @@ class Particle {
 
   void setRotate(Vec2D d, float r) {
     mode = "rotate";
-    delta = d.copy().scale(random(.2)+1);
-    deltaRotate = r;
+    rdelta = d.copy().scale(random(.2)+1);
+    rdeltaRotation = r;
   }
 
   void runRotate() {
-    target.addSelf(delta);
-    delta = delta.rotate(deltaRotate);
+    target.addSelf(rdelta);
+    delta = delta.rotate(rdeltaRotation);
   }
 
 
@@ -137,20 +136,10 @@ class Particle {
     vel.addSelf(steer(target, true));
     vel.addSelf(acc);
     loc.addSelf(vel);
-    //    lifespan -= 2.0;
   }
 
 
 
-  // Is the particle still useful?
-  boolean isDead() {
-    if (lifespan <= 0.0) {
-      return true;
-    } 
-    else {
-      return false;
-    }
-  }
 
   Vec2D steer(Vec2D target, boolean slowdown) {
     Vec2D steer;  // The steering vector

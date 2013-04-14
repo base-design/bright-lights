@@ -17,8 +17,11 @@ void setup() {
 
   for (int i = 0; i < ps.length; i++) {
     lights[i] = loadImage( (i+1) + ".png");
-    ps[i] = new ParticleSystem(50, white, sizes[i]);
   } 
+    ps[0] = new ParticleSystem(10, white, 40);
+    ps[1] = new ParticleSystem(10, white, 70);
+    ps[2] = new ParticleSystem(9, white, 30);
+    ps[3] = new ParticleSystem(9, white, 50);
 
 
   //  for (int i = 0; i < 150; i++) {
