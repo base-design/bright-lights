@@ -11,10 +11,11 @@ void parseInstructions() {
   for (int i = 0; i < data.length; i++) {
     data[i] = data[i].split("//")[0];
     if (data[i].trim().equals("break")) break;
-
+    
     if (data[i].indexOf(":") == 0) {
-      actOffset = parseInt(match(data[i], "[0-9]+")[0]);
-      println(actOffset);
+      String[][] parts = matchAll(data[i], "[0-9]+");
+      if (parts.length == 1) actOffset = parseInt(parts[0][0]);
+      else actOffset = parseInt(parts[0][0]) * parseInt(parts[1][0]);
     } 
     else if (!data[i].trim().equals("")) {
       String[] opts = data[i].split(",");
@@ -53,6 +54,7 @@ class Instruction {
     if (valid) {
       cue = parseInt(o[0]);
       group = parseInt(o[1]);
+      
       for (int i = 3; i < o.length; i++) {
         opts[i-3] =  o[i];
       }
@@ -64,7 +66,7 @@ class Instruction {
     //    //    println(cue + " " + millis());
     if (cue + actOffset <= millis() / 1000.0 && !hasRun && valid) {
       execute(type);
-      println("executing " + type + " at " + (cue + actOffset)); 
+      println((cue + actOffset) + "\texecuting " + type + " on group " + group ); 
       hasRun = true;
     }
   }

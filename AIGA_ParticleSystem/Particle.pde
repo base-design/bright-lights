@@ -9,7 +9,7 @@ class Particle {
   float maxforce = 0.5 + random(.1);
   String mode = "none";
 
-  Vec2D loc, target, origin, start, vel, acc;
+  Vec2D loc, target, offset, origin, start, vel, acc;
   PImage img;
   float size, targetSize;
   int id, order;
@@ -36,6 +36,7 @@ class Particle {
     loc = start.copy();
     target = start.copy();
     delta = d.copy();
+    offset = d.copy();
   }
 
 
@@ -84,8 +85,8 @@ class Particle {
     timer.wait(w * 1000);
     float mag;
     float angle = degrees(d.angleBetween(new Vec2D(1, 0)));
-    if (angle % 180 > 90+60 || angle % 180 < 30 ) mag = delta.x;
-    else if (angle % 90 > 30 || angle % 90 < 60 ) mag = delta.magnitude();
+    if (angle % 180 > 90+60 || angle % 180 < 30 ) mag = offset.x;
+    else if (angle % 90 > 30 || angle % 90 < 60 ) mag = offset.magnitude();
     else mag = delta.y;
     delta = d.normalize().scale(mag);
   }

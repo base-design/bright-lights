@@ -62,9 +62,14 @@ class ParticleSystem {
 
   void backAndForth(String d, int w) {
     Vec2D vector = new Vec2D();
-    if (d.equals("updown")) vector.set(0, 1);
-    else if (d.equals("leftright")) vector.set(1, 0);
+    if (d.equals("ud")) vector.set(0, 1);
+    else if (d.equals("u")) vector.set(0, -1);
+    else if (d.equals("d")) vector.set(0, 1);
+    else if (d.equals("lr")) vector.set(1, 0);
+    else if (d.equals("l")) vector.set(-1, 0);
+    else if (d.equals("r")) vector.set(1, 0);
     else if (parseInt(d) != 0) vector.set(1, 0).rotate(radians(parseInt(d) ) );
+//    println(vector);
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.setBackAndForth(vector, w);
