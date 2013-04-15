@@ -20,36 +20,34 @@ class ParticleSystem {
     int rows = num + num%2;
     int cols = ceil(num/ratio);
     Vec2D delta = new Vec2D(width / rows, height / cols);
-//    println(rows + " "+ delta );
+    //    println(rows + " "+ delta );
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         Vec2D v = new Vec2D((delta.x/type) + i * delta.x, (delta.y/type) + j * delta.y);
         particles.add( new Particle(v, img, size, delta, id));
       }
     }
-    
   }
   void run() {
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.run();
-     
     }
   }
 
 
-  void stop(){
+  void stop() {
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.stop();
-    }  
+    }
   }
 
 
 
-  void start( int cue){
+  void start( int cue) {
     order = new ArrayList();
-    for (int i = 0; i < particles.size(); i++){
+    for (int i = 0; i < particles.size(); i++) {
       order.add(i);
     }
 
@@ -62,25 +60,31 @@ class ParticleSystem {
   }
 
 
-  void backAndForth(String d, int w){
+  void backAndForth(String d, int w) {
     Vec2D vector = new Vec2D();
-    if(d.equals("updown")) vector.y = 1;
-    else if(d.equals("leftright")) vector.x = 1;
-    else if(parseInt(d) != 0) vector.set(1,0).rotate(radians(parseInt(d) ) );
+    if (d.equals("updown")) vector.set(0, 1);
+    else if (d.equals("leftright")) vector.set(1, 0);
+    else if (parseInt(d) != 0) vector.set(1, 0).rotate(radians(parseInt(d) ) );
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
-      p.setBackAndForth(vector,w);
+      p.setBackAndForth(vector, w);
     }
   }
-  
-  void rotate(float scale, float vel){
+
+  void rotate(float scale, float vel) {
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
-      p.setRotate(scale,vel);
+      p.setRotate(scale, vel);
     }
   }
 
 
+  void grow(int s) {
+    for (int i = particles.size()-1; i >= 0; i--) {
+      Particle p = particles.get(i);
+      p.grow(s);
+    }
+  }
 
 
 
@@ -95,9 +99,5 @@ class ParticleSystem {
   void addParticle(Particle p) {
     particles.add(p);
   }
-
-
-
 }
-
 

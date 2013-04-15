@@ -1,6 +1,50 @@
 // time, group, action, options
 // rotate opts : scale( ie. 1 or 1.5), velocity (ie. 1 or -1)
 // backAndForth opts	: direction(), pace (in seconds). 
-4000, 0, backAndForth, 	updown, 1
-8000, 1, rotate, 	1, 1
-8000, 2, rotate, 	1, -1
+// grow opts: size, timing.
+// 4, 0, backAndForth, updown, 1
+
+:6 
+0, 0, backAndForth, updown, 1
+2, 0, rotate, 1, 1
+4, 0, stop
+
+6, 0, backAndForth, updown, 1
+
+0, 0, grow, 150
+0, 1, grow, 150
+0, 2, grow, 150
+0, 3, grow, 150
+
+8, 0, grow, 50
+8, 1, grow, 50
+8, 2, grow, 50
+8, 3, grow, 50
+
+
+16, 0, rotate, 	1, 1
+16, 1, rotate, 	1, 1
+16, 2, rotate, 	1, -1
+16, 3, rotate, 	1, -1
+
+:30 
+
+4, 0, rotate, 	1, -2
+4, 1, rotate, 	1, -1
+4, 2, rotate, 	1, 2
+4, 3, rotate, 	1, 1
+
+12, 0, stop
+12, 1, stop
+12, 2, stop
+
+:300 
+4, 0, rotate, 	1, 1
+4, 1, rotate, 	1, 1
+4, 2, rotate, 	1, -1
+4, 3, rotate, 	1, -1
+
+4, 0, rotate, 	1, -2
+4, 1, rotate, 	1, -1
+4, 2, rotate, 	1, 2
+4, 3, rotate, 	1, 1

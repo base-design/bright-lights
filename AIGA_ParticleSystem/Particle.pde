@@ -11,7 +11,7 @@ class Particle {
 
   Vec2D loc, target, origin, start, vel, acc;
   PImage img;
-  float size;
+  float size, targetSize;
   int id, order;
 
 
@@ -20,28 +20,29 @@ class Particle {
   Timer timer;
   Vec2D delta, rdelta;
   float rvel, rangle;
-  
+
   Particle(Vec2D l, PImage i, int s, Vec2D d, int _id) {
     img = i;
     id = _id;
     size = s;
+    targetSize = s;
     timer = new Timer(1000);
-       
+
     acc = new Vec2D(0, 0);
-    vel = new Vec2D(0,0);
+    vel = new Vec2D(0, 0);
     origin = l.copy();
 
     start = new Vec2D(random(width), height + s );
     loc = start.copy();
     target = start.copy();
     delta = d.copy();
-
   }
 
 
   void render() {
     imageMode(CENTER);
-    tint(255,200);
+    tint(255, 200);
+    size = lerp(size,targetSize, 0.05);
     image(img, loc.x, loc.y, size, size);
     if (debug) {
       fill(255);
@@ -62,17 +63,17 @@ class Particle {
 
 
   // MODES
-  
-  void stop(){
-  mode = "none";
+
+  void stop() {
+    mode = "none";
   }
 
-  void setEnterStage(int o){
+  void setEnterStage(int o) {
     mode = "enterStage";
     order = o;
   }
-  
-  void runEnterStage(){
+
+  void runEnterStage() {
     target = origin.copy();
   }
 
@@ -80,13 +81,12 @@ class Particle {
   // BACK AND FORTH
   void setBackAndForth(Vec2D d, int w) {
     mode = "backAndForth";
-    timer.wait(w);
+    timer.wait(w * 1000);
     float mag;
-    float angle = d.angleBetween(new Vec2D(1,0));
+    float angle = degrees(d.angleBetween(new Vec2D(1, 0)));
     if (angle % 180 > 90+60 || angle % 180 < 30 ) mag = delta.x;
     else if (angle % 90 > 30 || angle % 90 < 60 ) mag = delta.magnitude();
     else mag = delta.y;
-    
     delta = d.normalize().scale(mag);
   }
 
@@ -95,7 +95,7 @@ class Particle {
       target.addSelf(delta);
       timer.start();
     }
-    if (timer.isFinished() ) {
+    if (timer.isFinished()) {
       delta = delta.rotate(PI);
     }
   }
@@ -106,7 +106,7 @@ class Particle {
 
   void setRotate(float sc, float v) {
     mode = "rotate";
-    rdelta = new Vec2D(delta.x,0);
+    rdelta = new Vec2D(delta.x, 0);
     rvel = radians(v);
   }
 
@@ -117,6 +117,11 @@ class Particle {
 
 
 
+
+  void grow(int s) {
+    mode = "grow";
+    targetSize = s;
+  }
 
 
 

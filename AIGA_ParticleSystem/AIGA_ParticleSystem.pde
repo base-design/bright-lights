@@ -1,10 +1,10 @@
 
 //PREFERENCES
-boolean debug = true;
+boolean debug = false;
 // how scaled down.
-int global_scale = 4;
+int global_scale = 2;
 // number of particles.
-int ps_num[] = { 26,25,26,25};
+int ps_num[] = { 30,29,30,29};
 // diameters per group
 int ps_size[] = {30,50,40,70};
 
@@ -22,7 +22,7 @@ boolean initialized = false;
 void setup() {
   size(canvas_width / global_scale, canvas_height /global_scale, P2D);
   white = loadImage("white.png"); // Load our spotlight
-  
+  frameRate(30);
   // intialize the 4 systems
   for (int i = 0; i < ps.length; i++) {
     ps[i] = new ParticleSystem(ps_num[i], white, ps_size[i] / global_scale, i);
