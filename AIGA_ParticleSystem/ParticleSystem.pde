@@ -17,13 +17,15 @@ class ParticleSystem {
     id = _id;
     float ratio = 1.0 * width / height;
     int type = (num%2 == 0) ? 2 : 1;
-    int rows = num + num%2;
-    int cols = ceil(num/ratio);
-    Vec2D delta = new Vec2D(width / rows, height / cols);
-    //    println(rows + " "+ delta );
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        Vec2D v = new Vec2D((delta.x/type) + i * delta.x, (delta.y/type) + j * delta.y);
+    int cols = num + num%2;
+    int rows = floor(num/ratio);
+    Vec2D delta = new Vec2D(width / (cols +1), height / (rows +1));
+    
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        Vec2D[] v = new Vec2D[10];
+        v[0] = new Vec2D( (delta.x) + i * delta.x, (delta.y) + j * delta.y);
+        v[1] = new Vec2D( (delta.x/type) + i * delta.x, (delta.y/type) + j * delta.y);
         particles.add( new Particle(v, img, size, delta, id));
       }
     }
@@ -97,7 +99,7 @@ class ParticleSystem {
 
 
 
-  void addParticle( Vec2D v, PImage i, Vec2D d, int id ) {
+  void addParticle( Vec2D[] v, PImage i, Vec2D d, int id ) {
     particles.add(new Particle(v, i, size, d, id));
   }
 

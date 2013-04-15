@@ -5,15 +5,15 @@
 // Simple Particle System
 class Particle {
   // Settings
-  float maxspeed = 5 + random(1);
-  float maxforce = 0.5 + random(.1);
+  float maxspeed = (10 + random(1)) / global_scale ;
+  float maxforce = (1 + random(.1)) / global_scale;
   String mode = "none";
-
+  Vec2D[] patterns;
   Vec2D loc, target, offset, origin, start, vel, acc;
   PImage img;
   float size, targetSize;
-  int id, order;
-
+  int groupId, order, currentPattern;
+  color c;
 
 
   // variables related to modes. 
@@ -21,30 +21,48 @@ class Particle {
   Vec2D delta, rdelta;
   float rvel, rangle;
 
-  Particle(Vec2D l, PImage i, int s, Vec2D d, int _id) {
+  Particle(Vec2D[] l, PImage i, int s, Vec2D d, int _id) {
     img = i;
-    id = _id;
+    groupId = _id;
     size = s;
     targetSize = s;
     timer = new Timer(1000);
-
+    c = color(255, 200);
     acc = new Vec2D(0, 0);
     vel = new Vec2D(0, 0);
-    origin = l.copy();
-
-    start = new Vec2D(random(width), height + s );
+    patterns = l;
+    currentPattern = 0;
+    origin = patterns[currentPattern]; 
+    if (playback) start = new Vec2D(random(width), height + s );
+    else start = origin.copy();
     loc = start.copy();
     target = start.copy();
     delta = d.copy();
     offset = d.copy();
+    if (!playback){
+    switch(groupId) {
+    case 0:
+      c = color(255, 0, 0, 200);
+      break;
+    case 1:
+      c = color(0, 255, 0, 200);
+      break;
+    case 2:
+      c = color(0, 255, 255, 200);
+      break;
+    case 3:
+      c = color(255, 255, 0, 200);
+    }
+//    println(groupId + " " + red(c) + " " + green(c) + " " + blue(c));
+    }
   }
 
 
   void render() {
     imageMode(CENTER);
-    tint(255, 200);
-    size = lerp(size,targetSize, 0.05);
-    image(img, loc.x, loc.y, size, size);
+    tint(c);
+    size = lerp(size, targetSize, 0.1 / global_scale);
+    image(img, loc.x, loc.y, size * 1.0 / global_scale, size * 1.0 / global_scale );
     if (debug) {
       fill(255);
       noStroke();

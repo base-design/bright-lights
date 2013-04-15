@@ -4,34 +4,33 @@
 // grow opts: size, timing.
 // 4, 0, backAndForth, updown, 1
 
-:16
 
+:16
 0,  0, backAndForth, u, 2
 4,  1, backAndForth, d, 2
 8,  2, backAndForth, u, 2
 12, 3, backAndForth, d, 2
 
-:16*2
-4,  1, backAndForth, r, 2
+:16
+0,  1, backAndForth, r, 2
 12, 3, backAndForth, l, 2
 
 
-:16*3
+:16
 0, 0, backAndForth, 45, 2
 4, 1, backAndForth, 45, 2
 8, 2, backAndForth, 45, 2
 12,3, backAndForth, 45, 2
 
-break
+//break
 
-:16*4
+:16
 0,  0, rotate, 	1, 1
 4,  1, rotate, 	1, 1
 8,  2, rotate, 	1, -1
 12, 3, rotate, 	1, -1
 
-
-
+16, 1, rotate, 	2, 1
 
 
 8, 0, grow, 50

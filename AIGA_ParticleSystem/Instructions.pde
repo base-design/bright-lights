@@ -14,8 +14,8 @@ void parseInstructions() {
     
     if (data[i].indexOf(":") == 0) {
       String[][] parts = matchAll(data[i], "[0-9]+");
-      if (parts.length == 1) actOffset = parseInt(parts[0][0]);
-      else actOffset = parseInt(parts[0][0]) * parseInt(parts[1][0]);
+      if (parts.length == 1) actOffset += parseInt(parts[0][0]);
+      else actOffset += parseInt(parts[0][0]) * parseInt(parts[1][0]);
     } 
     else if (!data[i].trim().equals("")) {
       String[] opts = data[i].split(",");

@@ -1,15 +1,18 @@
 
 //PREFERENCES
 boolean debug = false;
+boolean playback = false;
 // how scaled down.
-int global_scale = 2;
+int global_scale = 4;
 // number of particles.
 int ps_num[] = { 30,29,30,29};
 // diameters per group
-int ps_size[] = {30,50,40,70};
+int ps_size[] = {50,50,50,50};
 
 //Libraries
 import toxi.geom.*; 
+//import penner.easing.*;
+
 
 // Variables.=
 ParticleSystem ps[] = new ParticleSystem[4];
@@ -25,7 +28,7 @@ void setup() {
   frameRate(30);
   // intialize the 4 systems
   for (int i = 0; i < ps.length; i++) {
-    ps[i] = new ParticleSystem(ps_num[i], white, ps_size[i] / global_scale, i);
+    ps[i] = new ParticleSystem(ps_num[i], white, ps_size[i], i);
   }
 
   parseInstructions();
@@ -48,24 +51,23 @@ void keyPressed() {
   //stop
   if (key == '1') {
     ps[0].stop();
-  }
-  if (key == 'q') {
     ps[1].stop();
-  }
-  if (key == 'a') {
     ps[2].stop();
-  }
-  if (key == 'z') {
     ps[3].stop();
   }
-
-
-
-  //rotate : scale , velocity
-  // clockwise > 0 > counterclockwise
   if (key == '2') {
     ps[0].rotate(1, 1);
+    ps[1].rotate(1, 1);
+    ps[2].rotate(1, 1);
+    ps[3].rotate(1, 1);
   }
+  if (key == '3') {
+    ps[0].backAndForth("u", 1);
+    ps[1].backAndForth("d", 1);
+    ps[2].backAndForth("l", 1);
+    ps[3].backAndForth("r", 1);
+  }
+
   if (key == 'w') {
     ps[1].rotate(1, 1);
   }
@@ -81,7 +83,7 @@ void draw() {
   // Additive blending!
   blendMode(ADD);
   background(0); 
-  runInstructions();
+  if (playback) runInstructions();
   for (int i = 0; i < ps.length; i++) {
     ps[i].run();
   }
