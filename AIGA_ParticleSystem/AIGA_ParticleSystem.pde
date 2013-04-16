@@ -4,7 +4,7 @@ boolean debug = false;
 boolean playback = true;
 boolean intro = false;
 
-String instructions_file = "instructions_6.txt";
+String instructions_file = "instructions_test.txt";
 
 // how scaled down.
 int global_scale = 3;
