@@ -1,9 +1,9 @@
 
 //PREFERENCES
 boolean debug = false;
-boolean playback = false;
+boolean playback = true;
 // how scaled down.
-int global_scale = 4;
+int global_scale = 3;
 // number of particles.
 int ps_num[] = { 26,25,26,25};
 // diameters per group
