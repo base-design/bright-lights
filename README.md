@@ -1,4 +1,0 @@
-bright-lights
-=============
-
-Bright Lights
