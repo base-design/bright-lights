@@ -3,10 +3,10 @@
 boolean debug = false;
 boolean playback = true;
 boolean intro = false;
-boolean recording = true;
+boolean recording = false;
 // scale down.
 int global_scale = 1;
-
+int frame_rate = 30;
 String instructions_file = "instructions_6.txt";
 
 
@@ -39,7 +39,7 @@ void setup() {
   smooth();
   mono = createFont("Courier", 11);
   textFont(mono);
-  frameRate(30);
+  frameRate(frame_rate);
 
   // intialize the 4 systems
   for (int i = 0; i < ps.length; i++) {
