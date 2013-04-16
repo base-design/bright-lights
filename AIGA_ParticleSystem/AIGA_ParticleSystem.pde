@@ -5,7 +5,8 @@ boolean playback = true;
 
 String instructions_file = "instructions2.txt";
 // how scaled down.
-int global_scale = 1;
+int global_scale = 3;
+
 // number of particles.
 int ps_num[] = { 26,25,26,25};
 // diameters per group

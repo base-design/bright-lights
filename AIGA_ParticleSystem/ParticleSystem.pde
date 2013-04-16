@@ -30,6 +30,8 @@ class ParticleSystem {
         v[2] = new Vec2D( 2*offset/type + i/2 * 2*offset, 2*offset/type + j/2 * 2* offset);
         v[3] = new Vec2D( offset*4/type + i/4 * 4*offset, -offset/2 + offset*4/type + j/4 * 4* offset);
         v[4] = new Vec2D( offset + i/8 * 8*offset, offset*2.5 + j/8 * 8*offset);
+        v[5] = new Vec2D( (offset*6/type) + i/6 * offset, (offset*2/type) + j/2 * offset);
+        v[6] = new Vec2D( (offset*2/type) + i/2 * offset, (-offset/type) + j/2 * offset);
         particles.add( new Particle(v, img, size, offset, id));
       }
     }

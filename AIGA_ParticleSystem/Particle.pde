@@ -218,4 +218,3 @@ class Particle {
     return steer;
   }
 }
-
