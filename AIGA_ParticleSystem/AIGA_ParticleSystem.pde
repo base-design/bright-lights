@@ -3,16 +3,21 @@
 boolean debug = false;
 boolean playback = true;
 boolean intro = false;
+boolean recording = true;
+// scale down.
+int global_scale = 1;
 
 String instructions_file = "instructions_6.txt";
 
-// how scaled down.
-int global_scale = 3;
 
 // number of particles.
-int ps_num[] = { 26,25,26,25};
+int ps_num[] = { 
+  26, 25, 26, 25
+};
 // diameters per group
-int ps_size[] = {50,50,50,50};
+int ps_size[] = {
+  50, 50, 50, 50
+};
 
 //Libraries
 import toxi.geom.*; 
@@ -24,16 +29,17 @@ ParticleSystem ps[] = new ParticleSystem[4];
 PImage white;
 int canvas_width = 5760;
 int canvas_height = 1080;
+int frames = 0;
 boolean initialized = false;
 PFont mono;
-
+String currentTime = nf(hour(), 2)+"-"+nf(minute(), 2)+"-"+nf(second(), 2);
 void setup() {
   size(canvas_width / global_scale, canvas_height /global_scale, P2D);
   white = loadImage("white.png"); // Load our spotlight
   smooth();
   mono = createFont("Courier", 11);
   textFont(mono);
-
+  frameRate(30);
 
   // intialize the 4 systems
   for (int i = 0; i < ps.length; i++) {
@@ -51,12 +57,12 @@ void setup() {
 
 //preset  magnitude 1
 Vec2D horizontal = new Vec2D(1, 0);
-Vec2D vertical = new Vec2D(0,1);
-Vec2D upright = new Vec2D(1,1).normalize();
-Vec2D upleft = new Vec2D(-1,1).normalize();
+Vec2D vertical = new Vec2D(0, 1);
+Vec2D upright = new Vec2D(1, 1).normalize();
+Vec2D upleft = new Vec2D(-1, 1).normalize();
 
 void keyPressed() {
-  
+
   //stop
   if (key == '1') {
     ps[0].stop();
@@ -73,8 +79,8 @@ void keyPressed() {
   if (key == '3') {
     ps[0].backAndForth("u", 1, 1);
     ps[1].backAndForth("d", 1, 1);
-    ps[2].backAndForth("l", 1,1);
-    ps[3].backAndForth("r", 1,1);
+    ps[2].backAndForth("l", 1, 1);
+    ps[3].backAndForth("r", 1, 1);
   }
   if (key == '4') {
     ps[0].grow(100);
@@ -121,7 +127,6 @@ void keyPressed() {
       ps[i].changePattern(4);
     }
   }
-
 }
 
 void draw() {
@@ -131,19 +136,20 @@ void draw() {
   if (playback) runInstructions();
   for (int i = 0; i < ps.length; i++) {
     ps[i].run();
-  text(i + " " + ps[i].currentMode(), 10, i*13 +15 );
+    if (debug) text(i + " " + ps[i].currentMode(), 10, i*13 +15 );
   }
   fill(255);
-  text("framerate: " + parseInt(frameRate) + "\t\t\t elapsed: " + millis()/1000, 10, height-10);
- 
-  
-  
+  if (debug) text("framerate: " + parseInt(frameRate) + "\t\t\t elapsed: " + millis()/1000, 10, height-10);
+
+
+
   if (!initialized) {
     initialized = true; 
     for (int i = 0; i < ps.length; i++) {
       if (intro) ps[i].start(i);
     }
-  
-}
+  }
+  if (recording) saveFrame("exports/movie-"+ currentTime +"/" + "frame-#####.tif"); 
+  frames++;
 }
 

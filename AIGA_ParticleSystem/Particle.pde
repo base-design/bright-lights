@@ -64,7 +64,7 @@ class Particle {
     tint(c);
     size = lerp(size, targetSize, 0.1 / global_scale);
     image(img, loc.x, loc.y, size * 1.0 / global_scale, size * 1.0 / global_scale );
-    if (debug) {
+    if (debug && false) { // deactivating debug on particles
       fill(255);
       noStroke();
       ellipse(target.x, target.y, 4, 4);

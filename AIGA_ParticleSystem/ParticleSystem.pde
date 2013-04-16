@@ -69,7 +69,7 @@ class ParticleSystem {
   }
 
   void changePattern(int pt) {
-    currentMode += " changePattern:"+pt;
+    currentMode= currentMode.replaceAll(" *changePattern:[0-9]*", "") + " changePattern:"+pt;
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.changePattern(pt);
