@@ -5,7 +5,7 @@ class Timer {
   boolean running;
 
   Timer(int tempTotalTime) {
-    totalTime = tempTotalTime;
+    totalTime = tempTotalTime / 1000 * frame_rate;
   }
 
   void wait(int newTotalTime) {
@@ -16,7 +16,7 @@ class Timer {
   // Starting the timer
   void start() {
     // When the timer starts it stores the current time in milliseconds.
-    savedTime = millis(); 
+    savedTime = frames; 
     running = true;
   }
   void stop() {
@@ -28,7 +28,7 @@ class Timer {
   // The work of the timer is farmed out to this method.
   boolean isFinished() { 
     // Check how much time has passed
-    int passedTime = millis()- savedTime;
+    int passedTime = frames- savedTime;
     if (passedTime > totalTime && running) {
       running = false;
       return true;

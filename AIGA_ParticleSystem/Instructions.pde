@@ -82,6 +82,7 @@ class Instruction {
         if (type.equals("grow")) ps[i].grow( parseInt(opts[0]));
         if (type.equals("stop")) ps[i].stop();
         if (type.equals("changePattern")) ps[i].changePattern(parseInt(opts[0]));
+        if (type.equals("STOP")) exit(); 
       }
     } else {
       if (type.equals("backAndForth")) ps[group].backAndForth( opts[0], parseFloat(opts[1]), parseFloat(opts[2]) );

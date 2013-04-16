@@ -64,7 +64,7 @@ class Particle {
     tint(c);
     size = lerp(size, targetSize, 0.1 / global_scale);
     image(img, loc.x, loc.y, size * 1.0 / global_scale, size * 1.0 / global_scale );
-    if (debug) {
+    if (debug && false) { // deactivating debug on particles
       fill(255);
       noStroke();
       ellipse(target.x, target.y, 4, 4);
@@ -207,7 +207,8 @@ class Particle {
       // Normalize desired
       desired.normalize();
       // Two options for desired vector magnitude (1 -- based on distance, 2 -- maxspeed)
-      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/70.0f); // This damping is somewhat arbitrary
+//      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/70.0f); // This damping is somewhat arbitrary
+      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(map(d, 400,0,maxspeed,0)*2); // This damping is somewhat arbitrary
       else desired.scaleSelf(maxspeed);
       // Steering = Desired minus Velocity
       steer = desired.sub(vel).limit(maxforce);  // Limit to maximum steering force
