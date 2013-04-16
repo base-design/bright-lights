@@ -5,12 +5,13 @@ String[] validTypes = {
 }; //, "move", etc 
 
 void parseInstructions() {
-  data = loadStrings("instructions.txt");
+  data = loadStrings(instructions_file);
   int actOffset = 0;
   instructions = new ArrayList();
   for (int i = 0; i < data.length; i++) {
     data[i] = data[i].split("//")[0];
     if (data[i].trim().equals("break")) break;
+    if (data[i].trim().equals("clear")) { println("clear!"); instructions.clear(); actOffset = 0; continue; }
     
     if (data[i].indexOf(":") == 0) {
       String[][] parts = matchAll(data[i], "[0-9]+");
@@ -66,23 +67,24 @@ class Instruction {
     //    //    println(cue + " " + millis());
     if (cue + actOffset <= millis() / 1000.0 && !hasRun && valid) {
       execute(type);
-      println((cue + actOffset) + "\texecuting " + type + " on group " + group ); 
+      println((cue+ actOffset) + " " + cue + " "+ actOffset + "\texecuting " + type + " on group " + group ); 
       hasRun = true;
     }
   }
 
   void execute(String type) {
+    if (opts[2] == null) opts[2] = "1"; 
     if (group == 5){
       for (int i = 0; i < 4; i++){
-        if (type.equals("backAndForth")) ps[i].backAndForth( opts[0], parseInt(opts[1]) );
+        if (type.equals("backAndForth")) ps[i].backAndForth( opts[0], parseInt(opts[1]), parseFloat(opts[2]) );
         if (type.equals("rotate")) ps[i].rotate( parseInt(opts[0]), parseInt(opts[1]) );
         if (type.equals("grow")) ps[i].grow( parseInt(opts[0]));
         if (type.equals("stop")) ps[i].stop();
         if (type.equals("changePattern")) ps[i].changePattern(parseInt(opts[0]));
       }
     } else {
-      if (type.equals("backAndForth")) ps[group].backAndForth( opts[0], parseInt(opts[1]) );
-      if (type.equals("rotate")) ps[group].rotate( parseInt(opts[0]), parseInt(opts[1]) );
+      if (type.equals("backAndForth")) ps[group].backAndForth( opts[0], parseFloat(opts[1]), parseFloat(opts[2]) );
+      if (type.equals("rotate")) ps[group].rotate( parseFloat(opts[0]), parseFloat(opts[1]) );
       if (type.equals("grow")) ps[group].grow( parseInt(opts[0]));
       if (type.equals("stop")) ps[group].stop();
       if (type.equals("changePattern")) ps[group].changePattern(parseInt(opts[0]));

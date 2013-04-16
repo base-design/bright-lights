@@ -2,8 +2,12 @@
 //PREFERENCES
 boolean debug = false;
 boolean playback = true;
+boolean intro = false;
+
+String instructions_file = "instructions_5.txt";
 // how scaled down.
 int global_scale = 3;
+
 // number of particles.
 int ps_num[] = { 26,25,26,25};
 // diameters per group
@@ -11,7 +15,7 @@ int ps_size[] = {50,50,50,50};
 
 //Libraries
 import toxi.geom.*; 
-//import penner.easing.*;
+import penner.easing.*;
 
 
 // Variables.=
@@ -20,12 +24,16 @@ PImage white;
 int canvas_width = 5760;
 int canvas_height = 1080;
 boolean initialized = false;
-
+PFont mono;
 
 void setup() {
   size(canvas_width / global_scale, canvas_height /global_scale, P2D);
   white = loadImage("white.png"); // Load our spotlight
-  frameRate(30);
+  smooth();
+  mono = createFont("Courier", 11);
+  textFont(mono);
+
+
   // intialize the 4 systems
   for (int i = 0; i < ps.length; i++) {
     ps[i] = new ParticleSystem(ps_num[i], white, ps_size[i], i);
@@ -62,10 +70,10 @@ void keyPressed() {
     ps[3].rotate(1, -1);
   }
   if (key == '3') {
-    ps[0].backAndForth("u", 1);
-    ps[1].backAndForth("d", 1);
-    ps[2].backAndForth("l", 1);
-    ps[3].backAndForth("r", 1);
+    ps[0].backAndForth("u", 1, 1);
+    ps[1].backAndForth("d", 1, 1);
+    ps[2].backAndForth("l", 1,1);
+    ps[3].backAndForth("r", 1,1);
   }
   if (key == '4') {
     ps[0].grow(100);
@@ -107,6 +115,11 @@ void keyPressed() {
       ps[i].changePattern(3);
     }
   }
+  if (key == '-') {
+    for (int i = 0; i < ps.length; i++) {
+      ps[i].changePattern(4);
+    }
+  }
 
 }
 
@@ -118,12 +131,14 @@ void draw() {
   for (int i = 0; i < ps.length; i++) {
     ps[i].run();
   }
+  fill(255);
+  text("framerate: " + parseInt(frameRate) + "\t\t\t elapsed: " + millis()/1000, 10, height-10);
   
   
   if (!initialized) {
     initialized = true; 
     for (int i = 0; i < ps.length; i++) {
-      ps[i].start(i);
+      if (intro) ps[i].start(i);
     }
   
 }

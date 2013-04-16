@@ -4,31 +4,29 @@
 // grow opts: size, timing.
 // 4, 0, backAndForth, updown, 1
 
-:4
-0, 0, changePattern, 4
-0, 1, changePattern, 4
-0, 2, changePattern, 4
-0, 3, changePattern, 4
+
+:16
+clear
+0, all, changePattern, 4
 
 :4
-2, 0, changePattern, 3
-2, 1, changePattern, 3
-2, 2, changePattern, 3
-2, 3, changePattern, 3
+0, all, changePattern, 3
+
 
 :4
-0, 0, changePattern, 4
-0, 1, changePattern, 4
-0, 2, changePattern, 4
-0, 3, changePattern, 4
+0, all, changePattern, 2
+
+
 
 :2
 0, 0, backAndForth, 45, 2
 2, 1, backAndForth, 45, 2
 2, 2, backAndForth, 45, 2
 2, 3, backAndForth, 45, 2
-
+break
+ 
 :4
+clear
 2, 0, changePattern, 3
 2, 1, changePattern, 3
 2, 2, changePattern, 3
@@ -46,16 +44,12 @@
 0, 2, changePattern, 2
 0, 3, changePattern, 2
 
-
-
 :10
 0,  0, backAndForth, d, 4
 6,  1, backAndForth, u, 4
 12, 2, backAndForth, d,4
 18, 3, backAndForth, u, 4
-
-
-
+break
 :12
 0, 0, changePattern, 4
 0, 1, changePattern, 1
@@ -86,19 +80,11 @@
 0, 2, changePattern, 2
 0, 3, changePattern, 2
 
-
-
 :4
 0, 0, changePattern, 4
 0, 1, changePattern, 4
 0, 2, changePattern, 4
 0, 3, changePattern, 4
-
-
-
-
-
-
 
 :10
 0,  0, backAndForth, u, 2
@@ -149,17 +135,11 @@
 0, 2, changePattern, 4
 0, 3, changePattern, 4
 
-
-
 :4
 2, 0, changePattern, 3
 2, 1, changePattern, 3
 2, 2, changePattern, 3
 2, 3, changePattern, 3
-
-
-
-
 
 //old
 

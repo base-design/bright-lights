@@ -5,7 +5,7 @@
 // Simple Particle System
 class Particle {
   // Settings
-  float maxspeed = (10 + random(1)) / global_scale ;
+  float maxspeed = (15 + random(1)) / global_scale ;
   float maxforce = (1 + random(.1)) / global_scale;
   String mode = "none";
   Vec2D[] patterns;
@@ -35,24 +35,24 @@ class Particle {
     origin = patterns[currentPattern]; 
     if (playback) start = new Vec2D(random(width), height + _size );
     else start = origin.copy();
-    loc = start.copy();
-    target = start.copy();
+    loc = (intro) ? start.copy() : origin.copy();
+    target = (intro) ? start.copy() : origin.copy();
     offset = new Vec2D(_offset,_offset);
-    delta = offset.copy();
+    delta = offset.copy().scale(0.25);
 
     if (!playback){
       switch(groupId) {
       case 0:
-        c = color(255, 0, 0, 200);
+        c = color(255, 200, 200, 200);
         break;
       case 1:
-        c = color(0, 255, 0, 200);
+        c = color(200, 255, 200, 200);
         break;
       case 2:
-        c = color(0, 255, 255, 200);
+        c = color(200, 255, 255, 200);
         break;
       case 3:
-        c = color(255, 255, 0, 200);
+        c = color(255, 255, 200, 200);
       }
       // println(groupId + " " + red(c) + " " + green(c) + " " + blue(c));
     }
@@ -78,7 +78,7 @@ class Particle {
   void runModes() {
     if (mode.equals("backAndForth")) runBackAndForth();
     if (mode.equals("rotate")) runRotate();
-    if (mode.equals("enterStage"))  runEnterStage();
+    runEnterStage();
   }
 
 
@@ -94,8 +94,17 @@ class Particle {
     order = o;
   }
 
+  boolean entered = false;
   void runEnterStage() {
-    target = origin.copy();
+    if (!entered && initialized){
+      
+      if(order*10000/(order+1) < millis()) {
+        target = origin.copy();
+        entered = true;
+      } else {
+        target = start;
+      }
+    }
   }
 
   //CHANGE PATTERN
@@ -108,15 +117,15 @@ class Particle {
 
 
   // BACK AND FORTH
-  void setBackAndForth(Vec2D d, int w) {
+  void setBackAndForth(Vec2D d, float w, float s) {
     mode = "backAndForth";
-    timer.wait(w * 1000);
+    timer.wait(parseInt(w * 1000));
     float mag;
     float angle = degrees(d.angleBetween(new Vec2D(1, 0)));
     if (angle % 180 > 90+60 || angle % 180 < 30 ) mag = offset.x;
     else if (angle % 90 > 30 || angle % 90 < 60 ) mag = offset.magnitude();
     else mag = delta.y;
-    delta = d.normalize().scale(mag);
+    delta = d.normalize().scale(s * mag/3);
   }
 
   void runBackAndForth() {
@@ -135,7 +144,7 @@ class Particle {
 
   void setRotate(float sc, float v) {
     mode = "rotate";
-    rdelta = new Vec2D(delta.x, 0);
+    rdelta = new Vec2D(delta.x * sc, 0);
     rvel = radians(v);
   }
 
@@ -198,7 +207,7 @@ class Particle {
       // Normalize desired
       desired.normalize();
       // Two options for desired vector magnitude (1 -- based on distance, 2 -- maxspeed)
-      if (slowdown && d < 100.0f) desired.scaleSelf(maxspeed*d/50.0f); // This damping is somewhat arbitrary
+      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/70.0f); // This damping is somewhat arbitrary
       else desired.scaleSelf(maxspeed);
       // Steering = Desired minus Velocity
       steer = desired.sub(vel).limit(maxforce);  // Limit to maximum steering force
@@ -209,4 +218,3 @@ class Particle {
     return steer;
   }
 }
-
