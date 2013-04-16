@@ -1,9 +1,11 @@
 
 //PREFERENCES
 boolean debug = false;
-boolean playback = false;
+boolean playback = true;
+
+String instructions_file = "instructions2.txt";
 // how scaled down.
-int global_scale = 4;
+int global_scale = 1;
 // number of particles.
 int ps_num[] = { 26,25,26,25};
 // diameters per group
@@ -11,7 +13,7 @@ int ps_size[] = {50,50,50,50};
 
 //Libraries
 import toxi.geom.*; 
-//import penner.easing.*;
+import penner.easing.*;
 
 
 // Variables.=
@@ -20,12 +22,16 @@ PImage white;
 int canvas_width = 5760;
 int canvas_height = 1080;
 boolean initialized = false;
-
+PFont mono;
 
 void setup() {
   size(canvas_width / global_scale, canvas_height /global_scale, P2D);
   white = loadImage("white.png"); // Load our spotlight
-  frameRate(30);
+  smooth();
+  mono = createFont("Courier", 11);
+  textFont(mono);
+
+
   // intialize the 4 systems
   for (int i = 0; i < ps.length; i++) {
     ps[i] = new ParticleSystem(ps_num[i], white, ps_size[i], i);
@@ -107,6 +113,11 @@ void keyPressed() {
       ps[i].changePattern(3);
     }
   }
+  if (key == '-') {
+    for (int i = 0; i < ps.length; i++) {
+      ps[i].changePattern(4);
+    }
+  }
 
 }
 
@@ -118,6 +129,8 @@ void draw() {
   for (int i = 0; i < ps.length; i++) {
     ps[i].run();
   }
+  fill(255);
+  text("framerate: " + parseInt(frameRate) + "\t\t\t elapsed: " + millis()/1000, 10, height-10);
   
   
   if (!initialized) {

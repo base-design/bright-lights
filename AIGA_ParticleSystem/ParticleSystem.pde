@@ -29,7 +29,7 @@ class ParticleSystem {
         v[1] = new Vec2D( offset + i * offset, offset + j * offset);
         v[2] = new Vec2D( 2*offset/type + i/2 * 2*offset, 2*offset/type + j/2 * 2* offset);
         v[3] = new Vec2D( offset*4/type + i/4 * 4*offset, -offset/2 + offset*4/type + j/4 * 4* offset);
-        v[4] = new Vec2D( (offset/type) + i * offset, (offset/type) + j * offset);
+        v[4] = new Vec2D( offset + i/8 * 8*offset, offset*2.5 + j/8 * 8*offset);
         particles.add( new Particle(v, img, size, offset, id));
       }
     }
@@ -61,6 +61,7 @@ class ParticleSystem {
       Particle p = particles.get(i);
       int rand = (int) random(order.size());
       p.setEnterStage(order.get(rand));
+      
       order.remove(rand);
     }
   }

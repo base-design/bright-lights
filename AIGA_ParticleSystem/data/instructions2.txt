@@ -7,6 +7,15 @@
 
 
 :16
+0, all, changePattern, 4
+0, all, stop
+4, 0, rotate, 	1, 1
+4, 1, rotate, 	1, -1
+4, 2, rotate, 	4, 1
+4, 3, rotate, 	4, -1
+
+
+:16
 0,  0, backAndForth, u, 2
 0,  1, backAndForth, d, 2
 4,  2, backAndForth, l, 2
