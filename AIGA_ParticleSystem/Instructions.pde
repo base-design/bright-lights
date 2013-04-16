@@ -67,7 +67,8 @@ class Instruction {
     //    //    println(cue + " " + millis());
     if (cue + actOffset <= millis() / 1000.0 && !hasRun && valid) {
       execute(type);
-      println((cue+ actOffset) + " " + cue + " "+ actOffset + "\texecuting " + type + " on group " + group ); 
+      
+      println((cue+ actOffset) + " " + cue + " "+ actOffset + "\texecuting " + type + " on group " + group);
       hasRun = true;
     }
   }

@@ -4,7 +4,7 @@ boolean debug = false;
 boolean playback = true;
 boolean intro = false;
 
-String instructions_file = "instructions_5.txt";
+String instructions_file = "instructions_6.txt";
 
 // how scaled down.
 int global_scale = 3;
@@ -131,9 +131,11 @@ void draw() {
   if (playback) runInstructions();
   for (int i = 0; i < ps.length; i++) {
     ps[i].run();
+  text(i + " " + ps[i].currentMode(), 10, i*13 +15 );
   }
   fill(255);
   text("framerate: " + parseInt(frameRate) + "\t\t\t elapsed: " + millis()/1000, 10, height-10);
+ 
   
   
   if (!initialized) {

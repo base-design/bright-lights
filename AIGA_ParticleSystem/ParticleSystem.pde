@@ -10,6 +10,7 @@ class ParticleSystem {
   ArrayList<Particle> particles;    // An arraylist for all the particles
   ArrayList <Integer> order;
   int id, size;
+  String currentMode = "";
 
   ParticleSystem(int num, PImage img, int s, int _id) {
     particles = new ArrayList();              // Initialize the arraylist
@@ -20,7 +21,6 @@ class ParticleSystem {
     int cols = num + num%2;
     int rows = floor(num/ratio);
     float offset = width / (cols +1);
-    
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         Vec2D[] v = new Vec2D[10];
@@ -69,6 +69,7 @@ class ParticleSystem {
   }
 
   void changePattern(int pt) {
+    currentMode += " changePattern:"+pt;
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.changePattern(pt);
@@ -76,6 +77,7 @@ class ParticleSystem {
   }
 
   void backAndForth(String d, float w, float s) {
+    currentMode = "backAndForth:" + d+","+w+","+s;
     Vec2D vector = new Vec2D();
     if (d.equals("u")) vector.set(0, -1);
     else if (d.equals("d")) vector.set(0, 1);
@@ -90,6 +92,7 @@ class ParticleSystem {
   }
 
   void rotate(float scale, float vel) {
+    currentMode = "rotate:"+scale+","+vel;
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.setRotate(scale, vel);
@@ -98,13 +101,16 @@ class ParticleSystem {
 
 
   void grow(int s) {
+    currentMode += " grow";
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.grow(s);
     }
   }
 
-
+  String currentMode(){
+    return currentMode;
+  }
 
 
 

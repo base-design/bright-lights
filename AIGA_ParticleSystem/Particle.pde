@@ -144,7 +144,7 @@ class Particle {
 
   void setRotate(float sc, float v) {
     mode = "rotate";
-    rdelta = new Vec2D(delta.x * sc, 0);
+    rdelta = new Vec2D(offset.x / 4 * sc, 0);
     rvel = radians(v);
   }
 
