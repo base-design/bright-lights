@@ -1,7 +1,7 @@
 String[] data;
 ArrayList <Instruction> instructions;
 String[] validTypes = {
-  "backAndForth", "rotate", "stop", "grow"
+  "backAndForth", "rotate", "stop", "grow", "changePattern"
 }; //, "move", etc 
 
 void parseInstructions() {
@@ -76,6 +76,7 @@ class Instruction {
     if (type.equals("rotate")) ps[group].rotate( parseInt(opts[0]), parseInt(opts[1]) );
     if (type.equals("grow")) ps[group].grow( parseInt(opts[0]));
     if (type.equals("stop")) ps[group].stop();
+    if (type.equals("changePattern")) ps[group].changePattern(parseInt(opts[0]));
   }
 }
 
