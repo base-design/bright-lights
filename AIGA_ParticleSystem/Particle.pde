@@ -5,7 +5,7 @@
 // Simple Particle System
 class Particle {
   // Settings
-  float maxspeed = (15 + random(1)) / global_scale ;
+  float maxspeed = (25 + random(1)) / global_scale ;
   float maxforce = (1 + random(.1)) / global_scale;
   String mode = "none";
   Vec2D[] patterns;
@@ -145,7 +145,7 @@ class Particle {
   void setRotate(float sc, float v) {
     mode = "rotate";
     rdelta = new Vec2D(offset.x / 4 * sc, 0);
-    rvel = radians(v);
+    rvel = radians(v*2);
   }
 
   void runRotate() {
@@ -208,7 +208,7 @@ class Particle {
       desired.normalize();
       // Two options for desired vector magnitude (1 -- based on distance, 2 -- maxspeed)
 //      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/70.0f); // This damping is somewhat arbitrary
-      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(map(d, 400,0,maxspeed,0)*2); // This damping is somewhat arbitrary
+      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(map(d, 400 / global_scale,0,maxspeed,0)); // This damping is somewhat arbitrary
       else desired.scaleSelf(maxspeed);
       // Steering = Desired minus Velocity
       steer = desired.sub(vel).limit(maxforce);  // Limit to maximum steering force

@@ -1,13 +1,13 @@
 
 //PREFERENCES
-boolean debug = false;
+boolean debug = true;
 boolean playback = true;
 boolean intro = false;
-boolean recording = true;
+boolean recording = false;
 
 String instructions_file = "instructions_test.txt";
 // scale down.
-int global_scale = 1;
+int global_scale = 4;
 int frame_rate = 30;
 
 
@@ -33,6 +33,9 @@ int frames = 0;
 boolean initialized = false;
 PFont mono;
 String currentTime = nf(hour(), 2)+"-"+nf(minute(), 2)+"-"+nf(second(), 2);
+
+
+
 void setup() {
   size(canvas_width / global_scale, canvas_height /global_scale, P2D);
   white = loadImage("white.png"); // Load our spotlight
