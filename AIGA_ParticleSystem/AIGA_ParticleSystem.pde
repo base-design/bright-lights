@@ -3,7 +3,7 @@
 boolean debug = false;
 boolean playback = true;
 boolean intro = false;
-boolean recording = false;
+boolean recording = true;
 // scale down.
 int global_scale = 1;
 int frame_rate = 30;
@@ -21,7 +21,6 @@ int ps_size[] = {
 
 //Libraries
 import toxi.geom.*; 
-import penner.easing.*;
 
 
 // Variables.=
