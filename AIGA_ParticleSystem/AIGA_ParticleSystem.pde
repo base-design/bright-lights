@@ -5,7 +5,7 @@ boolean playback = false;
 // how scaled down.
 int global_scale = 4;
 // number of particles.
-int ps_num[] = { 30,29,30,29};
+int ps_num[] = { 26,25,26,25};
 // diameters per group
 int ps_size[] = {50,50,50,50};
 
@@ -57,9 +57,9 @@ void keyPressed() {
   }
   if (key == '2') {
     ps[0].rotate(1, 1);
-    ps[1].rotate(1, 1);
+    ps[1].rotate(1, -1);
     ps[2].rotate(1, 1);
-    ps[3].rotate(1, 1);
+    ps[3].rotate(1, -1);
   }
   if (key == '3') {
     ps[0].backAndForth("u", 1);
@@ -67,16 +67,47 @@ void keyPressed() {
     ps[2].backAndForth("l", 1);
     ps[3].backAndForth("r", 1);
   }
+  if (key == '4') {
+    ps[0].grow(100);
+    ps[1].grow(100);
+    ps[2].grow(100);
+    ps[3].grow(100);
+  }
+  if (key == '5') {
+    ps[0].grow(150);
+    ps[1].grow(150);
+    ps[2].grow(150);
+    ps[3].grow(150);
+  }
+  if (key == '6') {
+    ps[0].grow(100);
+    ps[1].grow(25);
+    ps[2].grow(100);
+    ps[3].grow(25);
+  }
 
-  if (key == 'w') {
-    ps[1].rotate(1, 1);
+
+  if (key == '7') {
+    for (int i = 0; i < ps.length; i++) {
+      ps[i].changePattern(0);
+    }
   }
-  if (key == 's') {
-    ps[2].rotate(1,-1);
+  if (key == '8') {
+    for (int i = 0; i < ps.length; i++) {
+      ps[i].changePattern(1);
+    }
   }
-  if (key == 'x') {
-    ps[3].rotate(1,-1);
+  if (key == '9') {
+    for (int i = 0; i < ps.length; i++) {
+      ps[i].changePattern(2);
+    }
   }
+  if (key == '0') {
+    for (int i = 0; i < ps.length; i++) {
+      ps[i].changePattern(3);
+    }
+  }
+
 }
 
 void draw() {

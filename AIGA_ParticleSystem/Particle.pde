@@ -21,39 +21,40 @@ class Particle {
   Vec2D delta, rdelta;
   float rvel, rangle;
 
-  Particle(Vec2D[] l, PImage i, int s, Vec2D d, int _id) {
-    img = i;
+  Particle(Vec2D[] _locs, PImage _img, int _size, float _offset, int _id) {
+    img = _img;
     groupId = _id;
-    size = s;
-    targetSize = s;
+    size = _size;
+    targetSize = _size;
     timer = new Timer(1000);
     c = color(255, 200);
     acc = new Vec2D(0, 0);
     vel = new Vec2D(0, 0);
-    patterns = l;
-    currentPattern = 0;
+    patterns = _locs;
+    currentPattern = 2;
     origin = patterns[currentPattern]; 
-    if (playback) start = new Vec2D(random(width), height + s );
+    if (playback) start = new Vec2D(random(width), height + _size );
     else start = origin.copy();
     loc = start.copy();
     target = start.copy();
-    delta = d.copy();
-    offset = d.copy();
+    offset = new Vec2D(_offset,_offset);
+    delta = offset.copy();
+
     if (!playback){
-    switch(groupId) {
-    case 0:
-      c = color(255, 0, 0, 200);
-      break;
-    case 1:
-      c = color(0, 255, 0, 200);
-      break;
-    case 2:
-      c = color(0, 255, 255, 200);
-      break;
-    case 3:
-      c = color(255, 255, 0, 200);
-    }
-//    println(groupId + " " + red(c) + " " + green(c) + " " + blue(c));
+      switch(groupId) {
+      case 0:
+        c = color(255, 0, 0, 200);
+        break;
+      case 1:
+        c = color(0, 255, 0, 200);
+        break;
+      case 2:
+        c = color(0, 255, 255, 200);
+        break;
+      case 3:
+        c = color(255, 255, 0, 200);
+      }
+      // println(groupId + " " + red(c) + " " + green(c) + " " + blue(c));
     }
   }
 
@@ -85,6 +86,7 @@ class Particle {
 
   void stop() {
     mode = "none";
+    target = origin.copy();
   }
 
   void setEnterStage(int o) {
@@ -93,6 +95,14 @@ class Particle {
   }
 
   void runEnterStage() {
+    target = origin.copy();
+  }
+
+  //CHANGE PATTERN
+  
+  void changePattern(int p){
+    currentPattern = p;
+    origin = patterns[currentPattern]; 
     target = origin.copy();
   }
 
@@ -111,7 +121,7 @@ class Particle {
 
   void runBackAndForth() {
     if (!timer.isRunning()) {
-      target.addSelf(delta);
+      target = origin.add(delta);
       timer.start();
     }
     if (timer.isFinished()) {
@@ -138,7 +148,7 @@ class Particle {
 
 
   void grow(int s) {
-    mode = "grow";
+//    mode = "grow";
     targetSize = s;
   }
 

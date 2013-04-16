@@ -19,14 +19,18 @@ class ParticleSystem {
     int type = (num%2 == 0) ? 2 : 1;
     int cols = num + num%2;
     int rows = floor(num/ratio);
-    Vec2D delta = new Vec2D(width / (cols +1), height / (rows +1));
+    float offset = width / (cols +1);
     
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         Vec2D[] v = new Vec2D[10];
-        v[0] = new Vec2D( (delta.x) + i * delta.x, (delta.y) + j * delta.y);
-        v[1] = new Vec2D( (delta.x/type) + i * delta.x, (delta.y/type) + j * delta.y);
-        particles.add( new Particle(v, img, size, delta, id));
+        
+        v[0] = new Vec2D( (offset + ( offset/4 * ( id%2 * 2 - 1 ) ) ) + i * offset, (offset + ( offset/4 * (id/2*2 - 1) ) ) + j * offset);
+        v[1] = new Vec2D( offset + i * offset, offset + j * offset);
+        v[2] = new Vec2D( 2*offset/type + i/2 * 2*offset, 2*offset/type + j/2 * 2* offset);
+        v[3] = new Vec2D( offset*4/type + i/4 * 4*offset, -offset/2 + offset*4/type + j/4 * 4* offset);
+        v[4] = new Vec2D( (offset/type) + i * offset, (offset/type) + j * offset);
+        particles.add( new Particle(v, img, size, offset, id));
       }
     }
   }
@@ -61,13 +65,17 @@ class ParticleSystem {
     }
   }
 
+  void changePattern(int pt) {
+    for (int i = particles.size()-1; i >= 0; i--) {
+      Particle p = particles.get(i);
+      p.changePattern(pt);
+    }
+  }
 
   void backAndForth(String d, int w) {
     Vec2D vector = new Vec2D();
-    if (d.equals("ud")) vector.set(0, 1);
-    else if (d.equals("u")) vector.set(0, -1);
+    if (d.equals("u")) vector.set(0, -1);
     else if (d.equals("d")) vector.set(0, 1);
-    else if (d.equals("lr")) vector.set(1, 0);
     else if (d.equals("l")) vector.set(-1, 0);
     else if (d.equals("r")) vector.set(1, 0);
     else if (parseInt(d) != 0) vector.set(1, 0).rotate(radians(parseInt(d) ) );
@@ -99,12 +107,12 @@ class ParticleSystem {
 
 
 
-  void addParticle( Vec2D[] v, PImage i, Vec2D d, int id ) {
-    particles.add(new Particle(v, i, size, d, id));
-  }
-
-  void addParticle(Particle p) {
-    particles.add(p);
-  }
+//  void addParticle( Vec2D[] v, PImage i, Vec2D d, int id ) {
+//    particles.add(new Particle(v, i, size, d, id));
+//  }
+//
+//  void addParticle(Particle p) {
+//    particles.add(p);
+//  }
 }
 
