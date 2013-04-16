@@ -6,7 +6,6 @@
 
 
 :16
-clear
 0, all, changePattern, 4
 
 :4

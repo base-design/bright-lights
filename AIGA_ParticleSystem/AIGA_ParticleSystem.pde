@@ -5,6 +5,7 @@ boolean playback = true;
 boolean intro = false;
 
 String instructions_file = "instructions_5.txt";
+
 // how scaled down.
 int global_scale = 3;
 
