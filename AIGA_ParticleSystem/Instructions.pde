@@ -53,7 +53,7 @@ class Instruction {
     }
     if (valid) {
       cue = parseInt(o[0]);
-      group = parseInt(o[1]);
+      group = (o[1].equals("all")) ? 5 :  parseInt(o[1]);
       
       for (int i = 3; i < o.length; i++) {
         opts[i-3] =  o[i];
@@ -72,11 +72,22 @@ class Instruction {
   }
 
   void execute(String type) {
-    if (type.equals("backAndForth")) ps[group].backAndForth( opts[0], parseInt(opts[1]) );
-    if (type.equals("rotate")) ps[group].rotate( parseInt(opts[0]), parseInt(opts[1]) );
-    if (type.equals("grow")) ps[group].grow( parseInt(opts[0]));
-    if (type.equals("stop")) ps[group].stop();
-    if (type.equals("changePattern")) ps[group].changePattern(parseInt(opts[0]));
+    if (group == 5){
+      for (int i = 0; i < 4; i++){
+        if (type.equals("backAndForth")) ps[i].backAndForth( opts[0], parseInt(opts[1]) );
+        if (type.equals("rotate")) ps[i].rotate( parseInt(opts[0]), parseInt(opts[1]) );
+        if (type.equals("grow")) ps[i].grow( parseInt(opts[0]));
+        if (type.equals("stop")) ps[i].stop();
+        if (type.equals("changePattern")) ps[i].changePattern(parseInt(opts[0]));
+      }
+    } else {
+      if (type.equals("backAndForth")) ps[group].backAndForth( opts[0], parseInt(opts[1]) );
+      if (type.equals("rotate")) ps[group].rotate( parseInt(opts[0]), parseInt(opts[1]) );
+      if (type.equals("grow")) ps[group].grow( parseInt(opts[0]));
+      if (type.equals("stop")) ps[group].stop();
+      if (type.equals("changePattern")) ps[group].changePattern(parseInt(opts[0]));
+    }
+    
   }
 }
 

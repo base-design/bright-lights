@@ -31,7 +31,7 @@ class Particle {
     acc = new Vec2D(0, 0);
     vel = new Vec2D(0, 0);
     patterns = _locs;
-    currentPattern = 2;
+    currentPattern = 0;
     origin = patterns[currentPattern]; 
     if (playback) start = new Vec2D(random(width), height + _size );
     else start = origin.copy();
