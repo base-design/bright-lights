@@ -1,0 +1,90 @@
+// time, group, action, options
+// rotate opts : scale( ie. 1 or 1.5), velocity (ie. 1 or -1)
+// backAndForth opts	: direction(), pace (in seconds). 
+// grow opts: size, timing.
+// 4, 0, backAndForth, updown, 1
+
+
+
+:16
+0, all, changePattern, 4
+0, all, stop
+4, 0, rotate, 	1, 1
+4, 1, rotate, 	1, -1
+4, 2, rotate, 	4, 1
+4, 3, rotate, 	4, -1
+
+
+:16
+0,  0, backAndForth, u, 2
+0,  1, backAndForth, d, 2
+4,  2, backAndForth, l, 2
+4,  3, backAndForth, r, 2
+8,  0, backAndForth, u, 1
+8,  1, backAndForth, d, 1
+12,  2, backAndForth, l, 1
+12,  3, backAndForth, r, 1
+
+
+:16
+0, 0, backAndForth, 45, 2
+0, 1, backAndForth, 135, 2
+8, 2, backAndForth, 225, 2
+8, 3, backAndForth, 315, 2
+
+:16
+0,  0, rotate, 	1, 1
+0,  1, rotate, 	1, 1
+0,  2, rotate, 	1, 1
+0,  3, rotate, 	1, 1
+8,  2, rotate, 	1, -1
+8,  3, rotate, 	1, -1
+
+:16
+0, all, changePattern, 1
+0, all, stop
+
+2, all, grow, 100
+4, all, grow, 50
+6, all, grow, 100
+
+8, 0, rotate, 	1, 1
+8, 1, rotate, 	1, 1
+8, 2, rotate, 	1, -1
+8, 3, rotate, 	1, -1
+
+12, 0, rotate, 	1, 1
+12, 1, rotate, 	1, -1
+12, 2, rotate, 	1, 1
+12, 3, rotate, 	1, -1
+
+:16
+0, all, changePattern, 3
+2, all, grow, 200
+
+4, 0, backAndForth, 45, 2
+4, 1, backAndForth, 135, 2
+8, 2, backAndForth, u, 2
+8, 3, backAndForth, d, 2
+
+:16
+0, all, changePattern, 4
+0, all, stop
+4, 0, rotate, 	1, 1
+4, 1, rotate, 	1, -1
+4, 2, rotate, 	4, 1
+4, 3, rotate, 	4, -1
+
+
+
+:16
+0, all, changePattern, 4
+0, all, grow, 250
+0, all, stop
+4, 0, rotate, 	1, 1
+4, 1, rotate, 	1, -1
+4, 2, rotate, 	4, 1
+4, 3, rotate, 	4, -1
+8, all, stop
+10, all, changePattern, 0
+10, all, grow, 50

@@ -2,8 +2,9 @@
 //PREFERENCES
 boolean debug = false;
 boolean playback = true;
+boolean intro = false;
 
-String instructions_file = "instructions2.txt";
+String instructions_file = "instructions_4.txt";
 // how scaled down.
 int global_scale = 3;
 
@@ -69,10 +70,10 @@ void keyPressed() {
     ps[3].rotate(1, -1);
   }
   if (key == '3') {
-    ps[0].backAndForth("u", 1);
-    ps[1].backAndForth("d", 1);
-    ps[2].backAndForth("l", 1);
-    ps[3].backAndForth("r", 1);
+    ps[0].backAndForth("u", 1, 1);
+    ps[1].backAndForth("d", 1, 1);
+    ps[2].backAndForth("l", 1,1);
+    ps[3].backAndForth("r", 1,1);
   }
   if (key == '4') {
     ps[0].grow(100);
@@ -137,7 +138,7 @@ void draw() {
   if (!initialized) {
     initialized = true; 
     for (int i = 0; i < ps.length; i++) {
-      ps[i].start(i);
+      if (intro) ps[i].start(i);
     }
   
 }

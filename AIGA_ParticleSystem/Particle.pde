@@ -35,8 +35,8 @@ class Particle {
     origin = patterns[currentPattern]; 
     if (playback) start = new Vec2D(random(width), height + _size );
     else start = origin.copy();
-    loc = start.copy();
-    target = start.copy();
+    loc = (intro) ? start.copy() : origin.copy();
+    target = (intro) ? start.copy() : origin.copy();
     offset = new Vec2D(_offset,_offset);
     delta = offset.copy().scale(0.25);
 
@@ -117,15 +117,15 @@ class Particle {
 
 
   // BACK AND FORTH
-  void setBackAndForth(Vec2D d, int w) {
+  void setBackAndForth(Vec2D d, float w, float s) {
     mode = "backAndForth";
-    timer.wait(w * 1000);
+    timer.wait(parseInt(w * 1000));
     float mag;
     float angle = degrees(d.angleBetween(new Vec2D(1, 0)));
     if (angle % 180 > 90+60 || angle % 180 < 30 ) mag = offset.x;
     else if (angle % 90 > 30 || angle % 90 < 60 ) mag = offset.magnitude();
     else mag = delta.y;
-    delta = d.normalize().scale(mag/3);
+    delta = d.normalize().scale(s * mag/3);
   }
 
   void runBackAndForth() {
@@ -207,7 +207,7 @@ class Particle {
       // Normalize desired
       desired.normalize();
       // Two options for desired vector magnitude (1 -- based on distance, 2 -- maxspeed)
-      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/200.0f/global_scale); // This damping is somewhat arbitrary
+      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/70.0f); // This damping is somewhat arbitrary
       else desired.scaleSelf(maxspeed);
       // Steering = Desired minus Velocity
       steer = desired.sub(vel).limit(maxforce);  // Limit to maximum steering force

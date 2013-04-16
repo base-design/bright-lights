@@ -75,7 +75,7 @@ class ParticleSystem {
     }
   }
 
-  void backAndForth(String d, int w) {
+  void backAndForth(String d, float w, float s) {
     Vec2D vector = new Vec2D();
     if (d.equals("u")) vector.set(0, -1);
     else if (d.equals("d")) vector.set(0, 1);
@@ -85,7 +85,7 @@ class ParticleSystem {
 //    println(vector);
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
-      p.setBackAndForth(vector, w);
+      p.setBackAndForth(vector, w, s);
     }
   }
 

@@ -4,7 +4,7 @@
 // grow opts: size, timing.
 // 4, 0, backAndForth, updown, 1
 
-:4
+:16
 0, 0, changePattern, 4
 0, 1, changePattern, 4
 0, 2, changePattern, 4
