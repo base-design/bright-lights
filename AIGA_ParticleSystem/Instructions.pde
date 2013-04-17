@@ -1,7 +1,7 @@
 String[] data;
 ArrayList <Instruction> instructions;
 String[] validTypes = {
-  "backAndForth", "rotate", "stop", "grow", "changePattern"
+  "backAndForth", "rotate", "stop", "grow", "changePattern", "STOP"
 }; //, "move", etc 
 
 void parseInstructions() {
@@ -19,12 +19,12 @@ void parseInstructions() {
       else actOffset += parseInt(parts[0][0]) * parseInt(parts[1][0]);
     } 
     else if (!data[i].trim().equals("")) {
-      String[] opts = data[i].split(",");
+      String[] opts = (data[i]).split(",");
       for (int j = 0; j < opts.length; j++) {
         opts[j] = opts[j].trim();
       }
       //      println(opts);
-      instructions.add(new Instruction(opts, actOffset) );
+      instructions.add(new Instruction(opts, actOffset, i) );
     }
   }
   println("valid instructions: " + instructions.size());
@@ -44,10 +44,11 @@ class Instruction {
   boolean validOpts = false;
   int cue, group, actOffset;
   String type;
-  String[] opts = new String[4];
+  String[] opts = new String[5];
 
-  Instruction(String[] o, int ao) {
+  Instruction(String[] o, int ao, int l) {
     type = o[2];
+    opts[4] = l + "";
     actOffset = ao;
     for (int k = 0; k < validTypes.length; k++) {
       if (type.equals(validTypes[k])) valid = true;
@@ -65,10 +66,10 @@ class Instruction {
 
   void run() {
     //    //    println(cue + " " + millis());
-    if (cue + actOffset <= millis() / 1000.0 && !hasRun && valid) {
+    if (cue + actOffset <= frames / 1000.0 * 30 && !hasRun && valid) {
       execute(type);
       
-      println((cue+ actOffset) + " " + cue + " "+ actOffset + "\texecuting " + type + " on group " + group);
+      println(opts[4] + " " + (cue+ actOffset) + " " +  "\texecuting " + type + " on group " + group);
       hasRun = true;
     }
   }
@@ -82,7 +83,7 @@ class Instruction {
         if (type.equals("grow")) ps[i].grow( parseInt(opts[0]));
         if (type.equals("stop")) ps[i].stop();
         if (type.equals("changePattern")) ps[i].changePattern(parseInt(opts[0]));
-        if (type.equals("STOP")) exit(); 
+        if (type.equals("STOP")){ println("exiting"); exit(); } 
       }
     } else {
       if (type.equals("backAndForth")) ps[group].backAndForth( opts[0], parseFloat(opts[1]), parseFloat(opts[2]) );

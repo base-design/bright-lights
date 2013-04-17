@@ -97,6 +97,7 @@ clear
 12, 3, rotate, 	2, -2
 
 :16
+clear
 0, all, changePattern, 3
 2, all, grow, 200
 

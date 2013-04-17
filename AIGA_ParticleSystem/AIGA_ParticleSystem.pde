@@ -1,13 +1,14 @@
 
 //PREFERENCES
-boolean debug = true;
+boolean debug = false;
 boolean playback = true;
-boolean intro = false;
-boolean recording = false;
+boolean intro = true;
 
-String instructions_file = "instructions_7.txt";
+boolean recording = true;
+boolean colorful = true;
+String instructions_file = "instructions_8.txt";
 // scale down.
-int global_scale = 4;
+int global_scale = 1;
 int frame_rate = 30;
 
 
@@ -31,6 +32,7 @@ int canvas_width = 5760;
 int canvas_height = 1080;
 int frames = 0;
 boolean initialized = false;
+boolean gravity = false;
 PFont mono;
 String currentTime = nf(hour(), 2)+"-"+nf(minute(), 2)+"-"+nf(second(), 2);
 
@@ -65,7 +67,11 @@ Vec2D upright = new Vec2D(1, 1).normalize();
 Vec2D upleft = new Vec2D(-1, 1).normalize();
 
 void keyPressed() {
-
+  if (key == 'f') {
+     gravity = true;
+  }
+  
+  
   //stop
   if (key == '1') {
     ps[0].stop();
@@ -152,7 +158,7 @@ void draw() {
       if (intro) ps[i].start(i);
     }
   }
-  if (recording) saveFrame("exports/movie-"+ currentTime +"/" + "frame-#####.tif"); 
+  if (recording) saveFrame("exports/movie-"+ currentTime +"/" + "frame-#####.png"); 
   frames++;
 }
 

@@ -9,7 +9,7 @@ class Timer {
   }
 
   void wait(int newTotalTime) {
-    totalTime = newTotalTime;
+    totalTime =  newTotalTime / 1000 * frame_rate;
   }
   
   

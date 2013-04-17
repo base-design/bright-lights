@@ -40,19 +40,19 @@ class Particle {
     offset = new Vec2D(_offset,_offset);
     delta = offset.copy().scale(0.25);
 
-    if (!playback){
+    if (!playback || colorful){
       switch(groupId) {
       case 0:
-        c = color(255, 200, 200, 200);
+        c = color(255, 210, 219, 200);
         break;
       case 1:
-        c = color(200, 255, 200, 200);
+        c = color(240, 210, 255, 200);
         break;
       case 2:
-        c = color(200, 255, 255, 200);
+        c = color(216, 209, 255, 200);
         break;
       case 3:
-        c = color(255, 255, 200, 200);
+        c = color(255, 214, 252, 200);
       }
       // println(groupId + " " + red(c) + " " + green(c) + " " + blue(c));
     }
@@ -183,6 +183,7 @@ class Particle {
 
 
   void run() {
+    
     runModes();
     update();
     render();
@@ -190,7 +191,8 @@ class Particle {
 
   // Method to update location
   void update() {
-    vel.addSelf(steer(target, true));
+    if (gravity) acc.set(0,1);
+    if (!gravity) vel.addSelf(steer(target, true));
     vel.addSelf(acc);
     loc.addSelf(vel);
   }

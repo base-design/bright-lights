@@ -1,0 +1,298 @@
+// time, group, action, options
+// rotate opts : scale( ie. 1 or 1.5), velocity (ie. 1 or -1)
+// backAndForth opts	: direction(), pace (in seconds). 
+// grow opts: size, timing.
+// 4, 0, backAndForth, updown, 1
+
+// act one
+
+
+:16
+0,	0, backAndForth, u, 2
+0,	1, backAndForth, u, 2
+2,	2, backAndForth, d, 2
+2,	3, backAndForth, d, 2
+
+4,	0, backAndForth, l, 1
+4,	1, backAndForth, r, 1
+4,	2, backAndForth, l, 1
+4,	3, backAndForth, r, 1
+
+6,	0, backAndForth, u, 1
+6,	1, backAndForth, r, 1
+6,	2, backAndForth, l, 1
+6,	3, backAndForth, d, 1
+
+8, 0, backAndForth, 45, 2
+8, 1, backAndForth, u, 2
+8, 2, backAndForth, 225, 2
+8, 3, backAndForth, d, 2
+
+9, all, grow, 35
+
+10, 1, backAndForth, 135, 1
+10, 3, backAndForth, 315, 1
+
+12, 0, backAndForth, 45, 1
+12, 1, backAndForth, 135, 1
+12, 2, backAndForth, 225, 1
+12, 3, backAndForth, 315, 1
+
+14, 0, backAndForth, u, 1
+14, 1, backAndForth, 135, 1
+14, 2, backAndForth, u, 1
+14, 3, backAndForth, 315, 1
+
+
+:16
+0, all, changePattern, 1
+0, all, stop
+
+2, all, grow, 50
+2, all, changePattern, 3
+3, all, changePattern, 2
+4, 0, backAndForth, l, 4
+4, 1, backAndForth, r, 4
+4, 2, backAndForth, u, 4
+4, 3, backAndForth, d, 4
+
+6, 0, rotate,   1, 1
+6, 1, rotate,   1, 1
+6, 2, rotate,   1, -1
+6, 3, rotate,   1, -1
+
+8, 0, rotate,  1, 1.5
+8, 1, rotate,  2, -1.5
+8, 2, rotate,  2, 1.5
+8, 3, rotate,  2, -1.5
+
+10, 0, grow, 50
+10, 2, grow, 50
+
+12, 0, backAndForth, d, 2,1
+12, 2, backAndForth, u, 2,1
+
+14, 0, rotate,  1, 2
+14, 2, rotate,  2, -2
+14, 1, backAndForth, l, 2,2
+14, 3, backAndForth, r, 2,2
+14, 1, grow, 50
+14, 3, grow, 50
+14, 0, grow, 25
+14, 2, grow, 25
+
+
+
+:16
+0, all, changePattern, 0
+
+0, 0, backAndForth, 45, 2
+0, 2, backAndForth, 225, 2
+0, 1, rotate,  1, 2
+0, 3, rotate,  2, -2
+
+0, 0, backAndForth, 135, 1
+0, 1, backAndForth, 315, 1
+3, 2, rotate,  1, -1.5
+2, 3, rotate,  3, 2
+
+
+4, all, changePattern,2
+
+4, 0, rotate,  1, -2
+4, 1, rotate,  3, -1
+4, 2, backAndForth, l, 2,2
+4, 3, backAndForth, r, 2,2
+
+
+6, 0, rotate,  4, 2
+6, 1, rotate,  1, -1
+6, 2, backAndForth, u, 2,2
+6, 3, backAndForth, d, 2,2
+
+
+
+8, 1, grow, 50
+8, 3, grow, 50
+8, 0, grow, 75
+8, 2, grow, 75
+
+
+
+8, all, changePattern, 3
+10, all, changePattern, 1
+12, all, changePattern, 0
+13, all, changePattern, 2
+14, all, changePattern, 1
+
+
+
+
+// act two
+:16
+0, 1, grow, 75
+0, 3, grow, 75
+0, 0, grow, 100
+0, 2, grow, 100
+0, all, changePattern, 2
+0, 0, rotate,   4, 1.5
+0, 1, rotate,   4, -1.5
+0, 2, rotate,   4, 1.5
+0, 3, rotate,   4, -1.5
+
+2, 0, backAndForth, l, 4
+2, 1, backAndForth, r, 4
+2, 2, backAndForth, u, 4
+2, 3, backAndForth, d, 4
+
+4, 0, backAndForth, 135, 1
+4, 1, backAndForth, 225, 2
+4, 2, backAndForth, l, 4
+4, 3, backAndForth, r, 4
+
+
+8, 0, backAndForth, 45, 1, 2
+8, 1, backAndForth, 315, 2, 3
+8, 2, backAndForth, l, 4, 4
+8, 3, backAndForth, u, 4, 2
+
+
+12, 0, backAndForth, 135, 2 
+12, 1, backAndForth, 225, 1
+
+:16
+
+0, 0, rotate,   4, 3
+0, 1, rotate,   2, -1.5
+0, 2, rotate,   2, 1.5
+0, 3, rotate,   4, -4
+
+6, 0, rotate,   4, 1.5
+6, 1, rotate,   2, -1.5
+6, 2, rotate,   2, 1.5
+6, 3, rotate,   4, -1.5
+
+8, 1, grow, 100
+8, 0, rotate,   4, 1.5
+8, 1, rotate,   2, -3
+8, 2, rotate,   2, 1.5
+8, 3, rotate,   4, -3
+
+10, all, changePattern, 3
+12, 0, changePattern, 1
+12, 1, changePattern, 2
+12, 2, changePattern, 0
+12, 3, changePattern, 3
+
+
+:16
+0, all, changePattern, 3
+0, 0, rotate,   4, 1.5
+0, 1, rotate,   4, -1.5
+0, 2, rotate,   4, 1.5
+0, 3, rotate,   4, -1.5
+
+
+2, 0, backAndForth, l, 4
+2, 1, backAndForth, r, 4
+2, 2, backAndForth, u, 4
+2, 3, backAndForth, d, 4
+
+4, 0, backAndForth, 135, 1
+4, 1, backAndForth, 225, 2
+4, 2, backAndForth, l, 4
+4, 3, backAndForth, r, 4
+4, all, changePattern, 1
+6, all, changePattern, 0
+8, all, changePattern, 2
+12, 0, backAndForth, 135, 2, 4
+12, 1, backAndForth, 225, 1, 4
+12, 2, backAndForth, 135, 3, 3 
+12, 3, backAndForth, 225, 2, 3
+14, all, changePattern, 3
+
+
+
+
+
+///THIRD ACT
+
+
+
+:16
+0, all, changePattern, 4
+0, all, stop
+0, all, grow, 400
+
+2, 0, backAndForth, l, 4 , 8
+4, 1, backAndForth, r, 2 , 8
+6, 2, backAndForth, d, 2 , 4
+8, 3, backAndForth, l, 4 , 4
+
+
+
+:16
+0, all, changePattern, 3
+0, all, grow, 250
+0, all, stop
+
+2, all, changePattern, 4
+4, 0, rotate, 	4, 1
+4, 1, rotate, 	4, -2
+4, 2, rotate, 	6, 2
+4, 3, rotate, 	6, -1
+8, all, stop
+8, all, grow, 400
+
+10, 0, backAndForth, l, 1	, 4
+12, 0, backAndForth, r, 2	, 4
+14, 0, backAndForth, d, 1	, 4
+16, 0, backAndForth, l, 4	, 4
+
+11, 1, backAndForth, u, 1.4	, 4
+13, 1, backAndForth, r, 3	, 4
+15, 1, backAndForth, l, 2	, 4
+17, 1, backAndForth, d, 1	, 4
+
+11, 2, backAndForth, r, 1	, 4
+13, 2, backAndForth, l, 2	, 4
+15, 2, backAndForth, u, 5	, 4
+17, 2, backAndForth, r, 3	, 4
+
+10, 3, backAndForth, d, 1	, 4
+12, 3, backAndForth, l, 2	, 4
+14, 3, backAndForth, r, 1	, 4
+16, 3, backAndForth, u, 4	, 4
+
+
+:16
+0, 0, rotate,   4, 3
+0, 1, rotate,   2, -1.5
+0, 2, rotate,   2, 1.5
+0, 3, rotate,   4, -4
+
+4, all, grow, 200
+4, all, changePattern, 2
+
+
+6, 0, rotate,   8, 1.5
+6, 1, rotate,   4, -1.5
+6, 2, rotate,   4, 1.5
+6, 3, rotate,   4, -1.5
+
+4, all, changePattern, 4
+8, all, grow, 400
+8, 0, rotate,   8, 1.5
+8, 1, rotate,   4, -3
+8, 2, rotate,   4, 1.5
+8, 3, rotate,   8, -3
+
+// we need to do something here
+12, 0, grow, 200
+12, 0, grow, 200
+
+12, all, grow, 500
+14,all,stop
+
+:16
+4,all, STOP
