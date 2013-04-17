@@ -98,7 +98,7 @@ class Particle {
   void runEnterStage() {
     if (!entered && initialized){
       
-      if(order*10000/(order+1) < millis()) {
+      if(order*frame_rate*10/(order+1) < frames) {
         target = origin.copy();
         entered = true;
       } else {

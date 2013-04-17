@@ -66,7 +66,7 @@ class Instruction {
 
   void run() {
     //    //    println(cue + " " + millis());
-    if (cue + actOffset <= frames / 1000.0 * 30 && !hasRun && valid) {
+    if (cue + actOffset <= frames / 1000.0 * frame_rate && !hasRun && valid) {
       execute(type);
       
       println(opts[4] + " " + (cue+ actOffset) + " " +  "\texecuting " + type + " on group " + group);
