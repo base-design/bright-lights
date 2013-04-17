@@ -12,7 +12,7 @@ class Particle {
   Vec2D loc, target, offset, origin, start, vel, acc;
   PImage img;
   float size, targetSize;
-  int groupId, order, currentPattern;
+  int groupId, id, order, currentPattern;
   color c;
 
 
@@ -21,9 +21,10 @@ class Particle {
   Vec2D delta, rdelta;
   float rvel, rangle;
 
-  Particle(Vec2D[] _locs, PImage _img, int _size, float _offset, int _id) {
+  Particle(Vec2D[] _locs, PImage _img, int _size, float _offset, int _gid, int _id) {
     img = _img;
-    groupId = _id;
+    groupId = _gid;
+    id = _id;
     size = _size;
     targetSize = _size;
     timer = new Timer(1000);
@@ -113,6 +114,23 @@ class Particle {
     currentPattern = p;
     origin = patterns[currentPattern]; 
     target = origin.copy();
+    checkCurrentPattern();
+  }
+  void checkCurrentPattern(){
+    switch(currentPattern){
+      case 2:
+        targetSize = (id%2 == 0) ? targetSize : 0;
+        break;
+      case 3:
+        targetSize = (id%4 == 0) ? targetSize : 0;
+        break; 
+      case 4:
+        targetSize = (id%8 == 0) ? targetSize : 0;
+      default:
+        break;
+    }
+    if (size <= 25) c= color(red(c),green(c), blue(c), constrain(map(size,25,2,200,0), 0 ,200));
+    
   }
 
 
@@ -159,6 +177,7 @@ class Particle {
   void grow(int s) {
 //    mode = "grow";
     targetSize = s;
+    checkCurrentPattern();
   }
 
 
