@@ -5,7 +5,7 @@ boolean playback = true;
 boolean intro = false;
 boolean recording = false;
 
-String instructions_file = "instructions_test.txt";
+String instructions_file = "instructions_7.txt";
 // scale down.
 int global_scale = 4;
 int frame_rate = 30;

@@ -4,75 +4,6 @@
 // grow opts: size, timing.
 // 4, 0, backAndForth, updown, 1
 
-// act one
-:16
-clear
-0, all, changePattern, 3
-2, all, grow, 200
-
-4, 0, backAndForth, 45, 2
-4, 1, backAndForth, 135, 2
-8, 2, backAndForth, u, 2
-8, 3, backAndForth, d, 2
-
-
-10, all, stop
-12, 0, rotate,   4, 1
-12, 1, rotate,   4, -2
-12, all, changePattern, 2
-12, all, changePattern, 4
-
-14, all, changePattern, 1
-14, all, stop
-
-16, all, grow, 50
-
-4, all, grow, 25
-4, 0, backAndForth, l, 4
-4, 1, backAndForth, r, 4
-4, 2, backAndForth, u, 4
-4, 3, backAndForth, d, 4
-
-6, 0, rotate,   1, 1
-6, 1, rotate,   1, 1
-6, 2, rotate,   1, -1
-6, 3, rotate,   1, -1
-
-8, 0, rotate,  1, 1.5
-8, 1, rotate,  2, -1.5
-8, 2, rotate,  2, 1.5
-8, 3, rotate,  2, -1.5
-
-10, 0, grow, 75
-10, 2, grow, 50
-
-12, 0, backAndForth, d, 2,1
-12, 2, backAndForth, u, 2,1
-12, 0, grow, 25
-12, 2, grow, 25
-
-14, 0, rotate,  1, 2
-14, 2, rotate,  5, -1
-14, 2, rotate,  1, 1
-14, 1, grow, 50
-14, 3, grow, 50
-14, 0, grow, 25
-14, 2, grow, 25
-
-
-
-break
-
-
-
-
-
-
-
-
-
-// ----------------------------------------
-//old section 1
 0, all, changePattern, 1
 0, all, stop
 
@@ -83,6 +14,11 @@ break
 4, 1, backAndForth, r, 4
 4, 2, backAndForth, u, 4
 4, 3, backAndForth, d, 4
+
+6, 1, backAndForth, 45, 2
+6, 3, backAndForth, 225, 2
+6, 2, rotate, 1, -1
+6, 0, rotate, 1, 1
 
 6, 0, rotate,   1, 1
 6, 1, rotate,   1, 1
@@ -139,18 +75,11 @@ break
 8, 0, grow, 75
 8, 2, grow, 75
 
-
-
 8, all, changePattern, 3
 10, all, changePattern, 1
 12, all, changePattern, 0
 13, all, changePattern, 2
 14, all, changePattern, 1
-
-break
-
-
-
 
 // act two
 :16
@@ -230,7 +159,8 @@ break
 
 //---------------------------------
 
-:16
+:1
+
 0, all, stop
 
 0,  0, rotate, 	2, 1
@@ -261,6 +191,7 @@ break
 12,	3, backAndForth, d, 1
 
 :16
+
 0, 0, backAndForth, 45, 2
 0, 1, backAndForth, u, 2
 0, 2, backAndForth, 225, 2
@@ -323,10 +254,9 @@ break
 8, 2, backAndForth, u, 2
 8, 3, backAndForth, d, 2
 
-
 //good rotate pattern
-
 :16
+
 0, all, changePattern, 4
 0, all, stop
 4, 0, rotate, 	4, 1.5
@@ -375,3 +305,59 @@ break
 14, 0, backAndForth, d, 1 , 4
 16, 0, backAndForth, l, 4 , 4
 
+// act one test
+:16
+clear
+//0, all, changePattern, 3
+//2, all, grow, 200
+
+4, 0, backAndForth, 45, 2
+4, 1, backAndForth, 135, 2
+8, 2, backAndForth, u, 2
+8, 3, backAndForth, d, 2
+
+10, 0, backAndForth, u, 4
+10, 1, backAndForth, d, 2
+
+10, all, stop
+12, 0, rotate,   4, 1
+12, 1, rotate,   4, -2
+12, all, changePattern, 2
+12, all, changePattern, 4
+
+14, all, changePattern, 1
+14, all, stop
+
+16, all, grow, 50
+
+18, all, grow, 25
+18, 0, backAndForth, l, 4
+18, 1, backAndForth, r, 4
+18, 2, backAndForth, u, 4
+18, 3, backAndForth, d, 4
+
+20, 0, rotate,   1, 1
+20, 1, rotate,   1, 1
+20, 2, rotate,   1, -1
+20, 3, rotate,   1, -1
+
+22, 0, rotate,  1, 1.5
+22, 1, rotate,  2, -1.5
+22, 2, rotate,  2, 1.5
+22, 3, rotate,  2, -1.5
+
+24, 0, grow, 75
+24, 2, grow, 50
+
+26, 0, backAndForth, d, 2,1
+26, 2, backAndForth, u, 2,1
+26, 0, grow, 25
+26, 2, grow, 25
+
+28, 0, rotate,  1, 2
+28, 2, rotate,  5, -1
+28, 2, rotate,  1, 1
+28, 1, grow, 50
+28, 3, grow, 50
+28, 0, grow, 25
+28, 2, grow, 25

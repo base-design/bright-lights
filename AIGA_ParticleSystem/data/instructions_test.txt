@@ -1,7 +1,39 @@
-:16
+:2
 clear
-0, all, changePattern, 3
-2, all, grow, 200
+0, 0, backAndForth, 45, 2
+2, 1, backAndForth, 45, 2
+2, 2, backAndForth, 45, 2
+2, 3, backAndForth, 45, 2
+
+ 
+:4
+2, 0, changePattern, 3
+2, 1, changePattern, 3
+2, 2, changePattern, 3
+2, 3, changePattern, 3
+
+:4
+0, 0, changePattern, 3
+0, 1, changePattern, 3
+0, 2, changePattern, 3
+0, 3, changePattern, 3
+
+:4
+0, 0, changePattern, 2
+0, 1, changePattern, 2
+0, 2, changePattern, 2
+0, 3, changePattern, 2
+
+:10
+0,  0, backAndForth, d, 4
+6,  1, backAndForth, u, 4
+12, 2, backAndForth, d,4
+18, 3, backAndForth, u, 4
+break
+
+//------
+0, all, changePattern, 2
+//2, all, grow, 200
 
 4, 0, backAndForth, 45, 2
 4, 1, backAndForth, 135, 2
@@ -15,10 +47,8 @@ clear
 4, all, changePattern, 2
 4, all, changePattern, 4
 
-break
 
 :8
-clear
 0, all, changePattern, 4
 0, all, stop
 4, 0, rotate,   4, 1.5
@@ -42,3 +72,4 @@ clear
 4, 3, rotate,   4, -1.5
 6, all, changePattern, 3
 //end good rotate pattern
+
