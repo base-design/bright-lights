@@ -2,11 +2,11 @@
 //PREFERENCES
 boolean debug = true;
 boolean playback = true;
-boolean intro = true;
+boolean intro = false;
 
 boolean recording = false;
 boolean colorful = true;
-String instructions_file = "instructions_8.txt";
+String instructions_file = "instructions_test.txt";
 // scale down.
 int global_scale = 3;
 int frame_rate = 30;
@@ -35,7 +35,7 @@ boolean initialized = false;
 boolean gravity = false;
 PFont mono;
 String currentTime = nf(hour(), 2)+"-"+nf(minute(), 2)+"-"+nf(second(), 2);
-
+Vec2D g = new Vec2D(0,1);
 
 
 void setup() {
@@ -92,22 +92,22 @@ void keyPressed() {
     ps[3].backAndForth("r", 1, 1);
   }
   if (key == '4') {
-    ps[0].grow(100);
-    ps[1].grow(100);
-    ps[2].grow(100);
-    ps[3].grow(100);
+    ps[0].grow(100,0.1);
+    ps[1].grow(100,0.1);
+    ps[2].grow(100,0.1);
+    ps[3].grow(100,0.1);
   }
   if (key == '5') {
-    ps[0].grow(150);
-    ps[1].grow(150);
-    ps[2].grow(150);
-    ps[3].grow(150);
+    ps[0].grow(150,0.1);
+    ps[1].grow(150,0.1);
+    ps[2].grow(150,0.1);
+    ps[3].grow(150,0.1);
   }
   if (key == '6') {
-    ps[0].grow(100);
-    ps[1].grow(25);
-    ps[2].grow(100);
-    ps[3].grow(25);
+    ps[0].grow(100,0.1);
+    ps[1].grow(25,0.1);
+    ps[2].grow(100,0.1);
+    ps[3].grow(25,0.1);
   }
 
 

@@ -1,4 +1,17 @@
-clear
 
-1, all, changePattern, 0
-1, all, grow, 150
+1, all, changePattern, 4
+1, all, grow, 500
+
+
+
+8, all, falldown
+9, all, changePattern, 1
+9, all, grow, 500,1
+12, 0, grow, 50,1
+12, 1, grow, 50,1
+12, 2, grow, 50,1
+12, 3, grow, 50,1
+12, all, leave, .01
+14, all, leave, .1
+16, all, leave, .5
+18, all, leave, 1

@@ -11,10 +11,10 @@ class Particle {
   Vec2D[] patterns;
   Vec2D loc, target, offset, origin, start, vel, acc;
   PImage img;
-  float size, targetSize;
+  float size, targetSize, constantSize, growSpeed;
   int groupId, id, order, currentPattern;
   color c;
-
+  
 
   // variables related to modes. 
   Timer timer;
@@ -26,7 +26,9 @@ class Particle {
     groupId = _gid;
     id = _id;
     size = _size;
-    targetSize = _size;
+    growSpeed = 0.1; 
+
+    targetSize = constantSize = _size;
     timer = new Timer(1000);
     c = color(255, 200);
     acc = new Vec2D(0, 0);
@@ -38,10 +40,10 @@ class Particle {
     else start = origin.copy();
     loc = (intro) ? start.copy() : origin.copy();
     target = (intro) ? start.copy() : origin.copy();
-    offset = new Vec2D(_offset,_offset);
+    offset = new Vec2D(_offset, _offset);
     delta = offset.copy().scale(0.25);
 
-    if (!playback || colorful){
+    if (!playback || colorful) {
       switch(groupId) {
       case 0:
         c = color(255, 210, 219, 200);
@@ -63,7 +65,7 @@ class Particle {
   void render() {
     imageMode(CENTER);
     tint(c);
-    size = lerp(size, targetSize, 0.1 / global_scale);
+    size = lerp(size, targetSize, growSpeed / global_scale);
     image(img, loc.x, loc.y, size * 1.0 / global_scale, size * 1.0 / global_scale );
     if (debug && false) { // deactivating debug on particles
       fill(255);
@@ -97,40 +99,41 @@ class Particle {
 
   boolean entered = false;
   void runEnterStage() {
-    if (!entered && initialized){
-      
-      if(order*frame_rate*10/(order+1) < frames) {
+    if (!entered && initialized) {
+
+      if (order*frame_rate*10/(order+1) < frames) {
         target = origin.copy();
         entered = true;
-      } else {
+      } 
+      else {
         target = start;
       }
     }
   }
 
   //CHANGE PATTERN
-  
-  void changePattern(int p){
+
+  void changePattern(int p) {
     currentPattern = p;
     origin = patterns[currentPattern]; 
     target = origin.copy();
     checkCurrentPattern();
   }
-  void checkCurrentPattern(){
-    switch(currentPattern){
-      case 2:
-        targetSize = (id%2 == 0) ? targetSize : 0;
-        break;
-      case 3:
-        targetSize = (id%4 == 0) ? targetSize : 0;
-        break; 
-      case 4:
-        targetSize = (id%8 == 0) ? targetSize : 0;
-      default:
-        break;
+  void checkCurrentPattern() {
+    switch(currentPattern) {
+    case 2:
+      targetSize = (id%2 == 0) ? constantSize : 0;
+      break;
+    case 3:
+      targetSize = (id%4 == 0) ? constantSize : 0;
+      break; 
+    case 4:
+      targetSize = (id%8 == 0) ? constantSize : 0;
+    default:
+      targetSize = constantSize;
+      break;
     }
-    if (size <= 25) c= color(red(c),green(c), blue(c), constrain(map(size,25,2,200,0), 0 ,200));
-    
+    if (size <= 25) c= color(red(c), green(c), blue(c), constrain(map(size, 25, 2, 200, 0), 0, 200));
   }
 
 
@@ -174,14 +177,18 @@ class Particle {
 
 
 
-  void grow(int s) {
-//    mode = "grow";
-    targetSize = s;
+  void grow(int s, float sp) {
+    //    mode = "grow";
+    targetSize = constantSize = s;
+    growSpeed = sp;
     checkCurrentPattern();
   }
 
 
-
+  void leave(float sc){
+    acc.set((groupId%2 * 2 - 1) * (1 + random(3)), -0.5).scaleSelf(sc);
+    vel.set((random(2) - 1) / (sc*8), (random(2) - 1)/ (sc*8));
+  }
 
 
 
@@ -202,17 +209,25 @@ class Particle {
 
 
   void run() {
-    
+
     runModes();
     update();
     render();
   }
-
   // Method to update location
   void update() {
-    if (gravity) acc.set(0,1);
-    if (!gravity) vel.addSelf(steer(target, true));
-    vel.addSelf(acc);
+    if (gravity) {
+      if (loc.y >= height - size/global_scale/2) {
+        vel.set(vel.x, -vel.y).scaleSelf(.8);
+        loc.set(loc.x, height - size/global_scale/2);
+      }
+      vel.addSelf(g);  
+      vel.addSelf(acc);
+    } 
+    else {
+      vel.addSelf(steer(target, true));
+      vel.addSelf(acc);
+    }
     loc.addSelf(vel);
   }
 
@@ -228,8 +243,8 @@ class Particle {
       // Normalize desired
       desired.normalize();
       // Two options for desired vector magnitude (1 -- based on distance, 2 -- maxspeed)
-//      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/70.0f); // This damping is somewhat arbitrary
-      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(map(d, 400 / global_scale,0,maxspeed,0)); // This damping is somewhat arbitrary
+      //      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(maxspeed*d/70.0f); // This damping is somewhat arbitrary
+      if (slowdown && d < 400.0f / global_scale) desired.scaleSelf(map(d, 400 / global_scale, 0, maxspeed, 0)); // This damping is somewhat arbitrary
       else desired.scaleSelf(maxspeed);
       // Steering = Desired minus Velocity
       steer = desired.sub(vel).limit(maxforce);  // Limit to maximum steering force
@@ -240,3 +255,4 @@ class Particle {
     return steer;
   }
 }
+

@@ -30,8 +30,11 @@ class ParticleSystem {
         v[2] = new Vec2D( 2*offset/type + i/2 * 2*offset, 2*offset/type + j/2 * 2* offset);
         v[3] = new Vec2D( -offset/1.5 + offset*4/type + i/4 * 4.5*offset, -offset/2 + offset*4/type + j/4 * 4* offset);
         v[4] = new Vec2D( offset*4.5 + i/9 * 9*offset, offset*2.5 + j/9 * 9*offset);
-
-        particles.add( new Particle(v, img, size, offset, id, i));
+        v[5] = new Vec2D( width / 15, offset + (j+2)%4*offset);
+        v[6] = new Vec2D( (width / 15) *14, offset + j%4*offset);
+        
+        
+        particles.add( new Particle(v, img, size, offset, id, (i*rows)+j));
       }
     }
   }
@@ -99,13 +102,23 @@ class ParticleSystem {
   }
 
 
-  void grow(int s) {
+  void grow(int s, float sp) {
     currentMode += " grow";
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
-      p.grow(s);
+      p.grow(s, sp);
     }
   }
+
+  void leave(float s) {
+    currentMode = "leaving";
+    for (int i = particles.size()-1; i >= 0; i--) {
+      Particle p = particles.get(i);
+      p.leave(s);
+    }
+  }
+
+
 
   String currentMode(){
     return currentMode;
