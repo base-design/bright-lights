@@ -1,17 +1,7 @@
 
-//PREFERENCES
-boolean debug = true;
-boolean playback = true;
-boolean intro = false;
 
-boolean recording = false;
-boolean colorful = true;
-String instructions_file = "instructions_test.txt";
-// scale down.
-int global_scale = 3;
+
 int frame_rate = 30;
-
-
 // number of particles.
 int ps_num[] = { 
   26, 25, 26, 25
