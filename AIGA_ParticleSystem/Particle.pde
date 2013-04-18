@@ -121,12 +121,7 @@ class Particle {
   }
   void checkCurrentPattern() {
     switch(currentPattern) {
-    case 2:
-      targetSize = (id%2 == 0) ? constantSize : 0;
-      break;
-    case 3:
-      targetSize = (id%4 == 0) ? constantSize : 0;
-      break; 
+
     case 4:
       targetSize = (id%8 == 0) ? constantSize : 0;
     default:
