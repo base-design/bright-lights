@@ -17,7 +17,7 @@ import toxi.geom.*;
 
 // Variables.=
 ParticleSystem ps[] = new ParticleSystem[4];
-PImage white;
+PImage white,u,d,l,r;
 int canvas_width = 5760;
 int canvas_height = 1080;
 int frames = 0;
@@ -31,6 +31,13 @@ Vec2D g = new Vec2D(0,1);
 void setup() {
   size(canvas_width / global_scale, canvas_height /global_scale, P2D);
   white = loadImage("white.png"); // Load our spotlight
+  
+  // load gradient frame.
+  u = loadImage("up.png"); 
+  d = loadImage("down.png"); 
+  l = loadImage("left.png"); 
+  r = loadImage("right.png");
+  
   smooth();
   mono = createFont("Courier", 11);
   textFont(mono);
@@ -40,6 +47,7 @@ void setup() {
   for (int i = 0; i < ps.length; i++) {
     ps[i] = new ParticleSystem(ps_num[i], white, ps_size[i], i);
   }
+  
 
   parseInstructions();
 
@@ -150,5 +158,13 @@ void draw() {
   }
   if (recording) saveFrame("exports/movie-"+ currentTime +"/" + "frame-#####.png"); 
   frames++;
+  imageMode(CORNER);
+  blendMode(BLEND);
+  tint(255,0,0,255);
+  image(u,0,0, width, 40/global_scale);
+  image(d,0,height - 20/global_scale, width, 40/global_scale);
+  image(l,0,0,40/global_scale,height);
+  image(r,width - 40/global_scale,0,40/global_scale,height);
+  
 }
 

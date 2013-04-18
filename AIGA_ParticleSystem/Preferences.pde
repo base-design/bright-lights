@@ -1,11 +1,11 @@
 
 //PREFERENCES
-boolean debug = true;
+boolean debug = false;
 boolean playback = true;
-boolean intro = false;
+boolean intro = true;
 
-boolean recording = false;
+boolean recording = true;
 boolean colorful = true;
 String instructions_file = "instructions_12.txt";
 // scale down.
-int global_scale = 3;
+int global_scale = 1;
